@@ -1,10 +1,18 @@
 import { criarUsuario } from "../../src/casos-de-uso/cria-usuario.js";
-
+import randomEmail from "random-email";
 
 function testarCriarUsuario() {
-    console.log(criarUsuario('Josué Lucas','josuelucas@email.com','123@jsls'));
-    console.log(criarUsuario('Richard Rosenblat','example@email.com','123456789'));
-    console.log(criarUsuario('Fulano De Tal','emailExistente@email.com','qwertyuiop'));
+    const emailRepetido = randomEmail();
+    criarUsuario("Josué Lucas", randomEmail(), "123@jsls");
+    criarUsuario("Richard Rosenblat", randomEmail(), "123456789");
+    criarUsuario("Fulano De Tal", randomEmail(), "qwertyuiop");
+
+    console.log("--------------------------------------");
+    
+    criarUsuario("Fulano De Tal", emailRepetido, "qwertyuiop");
+    criarUsuario("Fulano De Tal", emailRepetido, "qwertyuiop");
+    criarUsuario("", randomEmail(), "");
+
 }
 
-testarCriarUsuario()
+testarCriarUsuario();

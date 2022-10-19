@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-    "scripts": {
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/RichardRosenblat/follow-up/issues"
   },
-  "homepage": "https://github.com/RichardRosenblat/follow-up#readme"
+  "homepage": "https://github.com/RichardRosenblat/follow-up#readme",
+  "dependencies": {
+    "random-email": "^1.0.3",
+    "validator": "^13.7.0"
+  }
 }
