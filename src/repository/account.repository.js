@@ -1,30 +1,36 @@
 import fs from "fs";
 
-const PATH = "data/accounts.json";
-let cache;
+export class AccountRepository {
 
-export function save(account) {
-	const savedList = list();
-	savedList.push(account);
+    #cache;
+    
+    constructor(path = "data/accounts.json") {
+        this.path = path;
+    }
 
-	const accountString = JSON.stringify(savedList);
-	fs.writeFileSync(PATH, accountString);
-	return account;
-}
+    save(account) {
+        const savedList = list();
+        savedList.push(account);
 
-export function list() {
-	if (!cache) {
-		try {
-			cache = JSON.parse(fs.readFileSync(PATH));
-		} catch {
-			cache = [];
-		}
-	}
-	return cache;
-}
+        const accountString = JSON.stringify(savedList);
+        fs.writeFileSync(this.path, accountString);
+        return account;
+    }
 
-export function doesEmailAlreadyExist(email) {
-	return list()
-		.map((account) => account.email)
-		.includes(email);
+    list() {
+        if (!this.cache) {
+            try {
+                this.#cache = JSON.parse(fs.readFileSync(this.path));
+            } catch {
+                this.#cache = [];
+            }
+        }
+        return this.#cache;
+    }
+
+    doesEmailAlreadyExist(email) {
+        return list()
+            .map((account) => account.email)
+            .includes(email);
+    }
 }

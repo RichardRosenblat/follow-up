@@ -1,34 +1,37 @@
-import { createUser } from "../../src/use-cases/create-user.js";
+
 import randomEmail from "random-email";
+import { getAccountRepositoryAndUseCase } from "../factories/account-utils.factory.js";
 
 function testCreateUser() {
-	const specificEmail = randomEmail();
+    const { useCase } = getAccountRepositoryAndUseCase();
 
-	const regular = createUser("Fulano Of Tal", specificEmail, "qwertyuiop");
+    const specificEmail = randomEmail();
 
-	const repeatedEmail = createUser("Fulano Of Tal", specificEmail, "qwertyuiop");
-	const invalidEmail = createUser("Fulano Of Tal", "invalid email", "qwertyuiop");
-	const tooShortPassword = createUser("Fulano Of Tal", randomEmail(), "12345");
+    const regular = useCase.createUser("Fulano Of Tal", specificEmail, "qwertyuiop");
 
-	const noName = createUser("", randomEmail(), "qwertyuiop");
-	const noEmail = createUser("Fulano Of Tal", "", "qwertyuiop");
-	const noPassword = createUser("Fulano Of Tal", randomEmail(), "");
-	const noUserInfo = createUser("", "", "");
+    const repeatedEmail = useCase.createUser("Fulano Of Tal", specificEmail, "qwertyuiop");
+    const invalidEmail = useCase.createUser("Fulano Of Tal", "invalid email", "qwertyuiop");
+    const tooShortPassword = useCase.createUser("Fulano Of Tal", randomEmail(), "12345");
 
-	console.log("Creating account: ", regular);
+    const noName = useCase.createUser("", randomEmail(), "qwertyuiop");
+    const noEmail = useCase.createUser("Fulano Of Tal", "", "qwertyuiop");
+    const noPassword = useCase.createUser("Fulano Of Tal", randomEmail(), "");
+    const noUserInfo = useCase.createUser("", "", "");
 
-	console.log("--------------------------------------");
+    console.log("Creating account: ", regular);
 
-	console.log("Repeated email: ", repeatedEmail);
-	console.log("Invalid email: ", invalidEmail);
-	console.log("Password too short: ", tooShortPassword);
+    console.log("--------------------------------------");
 
-	console.log("--------------------------------------");
+    console.log("Repeated email: ", repeatedEmail);
+    console.log("Invalid email: ", invalidEmail);
+    console.log("Password too short: ", tooShortPassword);
 
-	console.log("No name: ", noName);
-	console.log("No email: ", noEmail);
-	console.log("No password: ", noPassword);
-	console.log("No user info: ", noUserInfo);
+    console.log("--------------------------------------");
+
+    console.log("No name: ", noName);
+    console.log("No email: ", noEmail);
+    console.log("No password: ", noPassword);
+    console.log("No user info: ", noUserInfo);
 }
 
 testCreateUser();

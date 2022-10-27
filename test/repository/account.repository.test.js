@@ -1,22 +1,22 @@
-import { createUser } from "../../src/use-cases/create-user.js";
-import { list, save, doesEmailAlreadyExist } from "../../src/repository/account.repository.js";
 import randomEmail from "random-email";
-import { AccountEntity } from "../../src/entidades/conta.entity.js";
+import { AccountEntity } from "../../src/entities/account.entity.js";
+import { getAccountRepositoryAndUseCase } from "../factories/account-utils.factory.js";
 
 function testRepository() {
-    createUser("Josué Lucas", randomEmail(), "123@jsls");
-    createUser("Richard Rosenblat", randomEmail(), "123456789");
-    createUser("Fulano Of Tal", randomEmail(), "qwertyuiop");
+    const { repository, useCase } = getAccountRepositoryAndUseCase();
 
-    const specificEmail = randomEmail()
+    useCase.createUser("Josué Lucas", randomEmail(), "123@jsls");
+    useCase.createUser("Richard Rosenblat", randomEmail(), "123456789");
+    useCase.createUser("Fulano Of Tal", randomEmail(), "qwertyuiop");
 
-    save(new AccountEntity("Fulano Of Tal",specificEmail,'qwertyuiop'));
+    const specificEmail = randomEmail();
 
-    
+    repository.save(new AccountEntity("Fulano Of Tal", specificEmail, "qwertyuiop"));
+
     console.log("--------------------------------------");
-    console.log('Saved accounts:');
-    console.log(list());
-    console.log(`Does the email '${specificEmail}' exists: `,doesEmailAlreadyExist(specificEmail));
+    console.log("Saved accounts:");
+    console.log(repository.list());
+    console.log(`Does the email '${specificEmail}' exists: `, repository.doesEmailAlreadyExist(specificEmail));
     console.log("--------------------------------------");
 }
 
