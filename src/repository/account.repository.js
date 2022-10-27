@@ -1,11 +1,16 @@
 import fs from "fs";
 
 export class AccountRepository {
-    #cache;
+	#cache;
+	#path;
 
-    constructor(path = "data/accounts.json") {
-        this.path = path;
-    }
+	get path() {
+		return this.#path;
+	}
+
+	constructor(path = "data/accounts.json") {
+		this.#path = path;
+	}
 
     save(account) {
         const savedList = this.list();
