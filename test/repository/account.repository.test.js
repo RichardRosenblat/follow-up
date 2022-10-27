@@ -1,6 +1,7 @@
 import { createUser } from "../../src/use-cases/create-user.js";
 import { list, save, doesEmailAlreadyExist } from "../../src/repository/account.repository.js";
 import randomEmail from "random-email";
+import { AccountEntity } from "../../src/entidades/conta.entity.js";
 
 function testRepository() {
     createUser("Josué Lucas", randomEmail(), "123@jsls");
@@ -9,13 +10,8 @@ function testRepository() {
 
     const specificEmail = randomEmail()
 
-    save({
-        id: "54779df7-399b-4c3c-849f-5ee97d3690ef",
-        nome: "Fulano Of Tal",
-        email: specificEmail,
-        senha: "qwertyuiop",
-        dataCriacao: "2022-10-19",
-    });
+    save(new AccountEntity("Fulano Of Tal",specificEmail,'qwertyuiop'));
+
     
     console.log("--------------------------------------");
     console.log('Saved accounts:');
