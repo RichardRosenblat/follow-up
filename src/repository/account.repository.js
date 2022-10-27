@@ -1,19 +1,18 @@
 import fs from "fs";
 
 export class AccountRepository {
-
     #cache;
-    
+
     constructor(path = "data/accounts.json") {
         this.path = path;
     }
 
     save(account) {
-        const savedList = list();
+        const savedList = this.list();
         savedList.push(account);
 
-        const accountString = JSON.stringify(savedList);
-        fs.writeFileSync(this.path, accountString);
+        const accountsString = JSON.stringify(savedList);
+        fs.writeFileSync(this.path, accountsString);
         return account;
     }
 
@@ -29,7 +28,7 @@ export class AccountRepository {
     }
 
     doesEmailAlreadyExist(email) {
-        return list()
+        return this.list()
             .map((account) => account.email)
             .includes(email);
     }

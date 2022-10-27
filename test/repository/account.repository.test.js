@@ -1,13 +1,13 @@
 import randomEmail from "random-email";
 import { AccountEntity } from "../../src/entities/account.entity.js";
-import { getAccountRepositoryAndUseCase } from "../factories/account-utils.factory.js";
+import { AccountUtilsFactory} from "../factories/account-utils.factory.js";
 
 function testRepository() {
-    const { repository, useCase } = getAccountRepositoryAndUseCase();
+    const { repository, createUser } = AccountUtilsFactory.getAccountRepositoryAndCreateUser();
 
-    useCase.createUser("Josué Lucas", randomEmail(), "123@jsls");
-    useCase.createUser("Richard Rosenblat", randomEmail(), "123456789");
-    useCase.createUser("Fulano Of Tal", randomEmail(), "qwertyuiop");
+    createUser.execute("Josué Lucas", randomEmail(), "123@jsls");
+    createUser.execute("Richard Rosenblat", randomEmail(), "123456789");
+    createUser.execute("Fulano Of Tal", randomEmail(), "qwertyuiop");
 
     const specificEmail = randomEmail();
 
