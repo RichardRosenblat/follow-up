@@ -1,5 +1,7 @@
 import { UserEntity } from "../entities/user.entity.js";
 import { CreateUserValidator } from "../validators/create-user.validator.js";
+import { DatabaseConnections } from "../infra/database-connections.js";
+import { UserRepository } from "../repository/user.repository.js";
 
 export class CreateUserUseCase {
     #repository;
@@ -10,14 +12,13 @@ export class CreateUserUseCase {
         this.#validator = new CreateUserValidator(this.#repository);
     }
 
-    execute(name, email, password) {
-        const validationResult = this.#validator.execute(name, email, password);
-
+    async execute(name, email, password) {
+        const validationResult = await this.#validator.execute(name, email, password);
         if (validationResult.hasErrors) {
             return validationResult.errors.map((error) => error.message);
         }
-        
-        const newUser = new UserEntity(name, email, password);
-        return this.#repository.save(newUser);
+
+        const newUser = new UserEntity({ name, email, password });
+        return await this.#repository.save(newUser);
     }
 }

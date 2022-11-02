@@ -1,44 +1,25 @@
-import fs from "fs";
-import { literalToUser } from "../../util/userMappers/literalToUser.js";
-import { userToLiteral } from "../../util/userMappers/userToLiteral.js";
+import { UserEntity } from "../entities/user.entity.js";
 
 export class UserRepository {
-	#cache;
-	#path;
+    #db;
 
-	get path() {
-		return this.#path;
-	}
+    constructor(database) {
+        this.#db = database;
+    }
 
-	constructor(path = "data/users.json") {
-		this.#path = path;
-	}
+    async save(user) {
+        const db = await this.#db;
+        await db.insertOne(user.toLiteral());
+        return user;
+    }
 
-	save(user) {
-		const savedList = this.list();
-		savedList.push(user);
+    async list() {
+        const usersArray = await this.#db.find().toArray();
+        return usersArray.map((user) => new UserEntity(user));
+    }
 
-		const literalList = savedList.map((user) => userToLiteral(user));
-		const usersString = JSON.stringify(literalList);
-		fs.writeFileSync(this.path, usersString);
-		return user;
-	}
-
-	list() {
-		if (!this.cache) {
-			try {
-				const parsedJson = JSON.parse(fs.readFileSync(this.path))
-				this.#cache = parsedJson.map((literal) => literalToUser(literal));
-			} catch {
-				this.#cache = [];
-			}
-		}
-		return this.#cache;
-	}
-
-	doesEmailAlreadyExist(email) {
-		return this.list()
-			.map((user) => user.email)
-			.includes(email);
-	}
+    async doesEmailAlreadyExist(email) {
+        const userWithEmail = await this.#db.findOne({ email });
+        return userWithEmail;
+    }
 }
