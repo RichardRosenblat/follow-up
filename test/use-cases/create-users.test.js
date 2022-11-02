@@ -1,9 +1,10 @@
 
 import randomEmail from "random-email";
-import { AccountUtilsFactory } from "../factories/account-utils.factory.js";
+import { userToLiteralWithFormattedDate } from "../../util/userMappers/userToLiteral.js";
+import { UserUtilsFactory } from "../factories/user-utils.factory.js";
 
 function testCreateUser() {
-    const { createUser } = AccountUtilsFactory.getAccountRepositoryAndCreateUser();
+    const { createUser } = UserUtilsFactory.getUserRepositoryAndCreateUser();
 
     const specificEmail = randomEmail();
 
@@ -18,20 +19,20 @@ function testCreateUser() {
     const noPassword = createUser.execute("Fulano Of Tal", randomEmail(), "");
     const noUserInfo = createUser.execute("", "", "");
 
-    console.log("Creating account: ", regular);
+    console.log("Creating user: ", userToLiteralWithFormattedDate(regular));
 
     console.log("--------------------------------------");
 
-    console.log("Repeated email: ", repeatedEmail);
-    console.log("Invalid email: ", invalidEmail);
-    console.log("Password too short: ", tooShortPassword);
+    console.log("Repeated email: ", userToLiteralWithFormattedDate(repeatedEmail));
+    console.log("Invalid email: ", userToLiteralWithFormattedDate(invalidEmail));
+    console.log("Password too short: ", userToLiteralWithFormattedDate(tooShortPassword));
 
     console.log("--------------------------------------");
 
-    console.log("No name: ", noName);
-    console.log("No email: ", noEmail);
-    console.log("No password: ", noPassword);
-    console.log("No user info: ", noUserInfo);
+    console.log("No name: ", userToLiteralWithFormattedDate(noName));
+    console.log("No email: ", userToLiteralWithFormattedDate(noEmail));
+    console.log("No password: ", userToLiteralWithFormattedDate(noPassword));
+    console.log("No user info: ", userToLiteralWithFormattedDate(noUserInfo));
 }
 
 testCreateUser();

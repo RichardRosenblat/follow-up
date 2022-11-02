@@ -1,13 +1,13 @@
-import { AccountEntity } from "../entities/account.entity.js";
-import { CreateAccountValidator } from "../validators/create-account.validator.js";
+import { UserEntity } from "../entities/user.entity.js";
+import { CreateUserValidator } from "../validators/create-user.validator.js";
 
 export class CreateUserUseCase {
     #repository;
     #validator;
 
-    constructor(accountRepository) {
-        this.#repository = accountRepository;
-        this.#validator = new CreateAccountValidator(this.#repository);
+    constructor(userRepository) {
+        this.#repository = userRepository;
+        this.#validator = new CreateUserValidator(this.#repository);
     }
 
     execute(name, email, password) {
@@ -17,7 +17,7 @@ export class CreateUserUseCase {
             return validationResult.errors.map((error) => error.message);
         }
         
-        const newUser = new AccountEntity(name, email, password);
+        const newUser = new UserEntity(name, email, password);
         return this.#repository.save(newUser);
     }
 }

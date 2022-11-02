@@ -1,12 +1,12 @@
 import validator from "validator";
 import { ValidationResultDTO } from "../dtos/validationResult.dto.js";
 
-export class CreateAccountValidator {
+export class CreateUserValidator {
     #repository;
     #validations;
 
-    constructor(accountRepository) {
-        this.#repository = accountRepository;
+    constructor(userRepository) {
+        this.#repository = userRepository;
         this.#validations = [
             {
                 validation: ({ name }) => validator.isEmpty(name),
