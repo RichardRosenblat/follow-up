@@ -1,0 +1,26 @@
+{
+  "_id": {
+    "$oid": "63611dc4e375b040dc3dd020"
+  },
+  "name": "roberto",
+  "email": "roberto@gmail.com ",
+  "password": "password",
+  "creationDate": {
+    "$date": {
+      "$numberLong": "1667260800000"
+    }
+  },
+  "posts": [
+    {
+      "text": "Lorem ipsum dolor sit amet",
+      "creationDate": {
+        "$date": {
+          "$numberLong": "1667321194087"
+        }
+      },
+      "post_id": {
+        "$oid": "636150902340e4b974f42d33"
+      }
+    }
+  ]
+}

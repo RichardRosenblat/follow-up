@@ -1,0 +1,18 @@
+{
+    "_id": {
+      "$oid": "636150902340e4b974f42d33"
+    },
+    "text": "Lorem ipsum dolor sit amet",
+    "author": {
+      "name": "roberto",
+      "email": "roberto@gmail.com",
+      "author_id": {
+        "$oid": "63611dc4e375b040dc3dd020"
+      }
+    },
+    "creationDate": {
+      "$date": {
+        "$numberLong": "1667321194087"
+      }
+    }
+  }
