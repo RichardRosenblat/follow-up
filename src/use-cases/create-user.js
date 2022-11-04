@@ -1,7 +1,5 @@
 import { UserEntity } from "../entities/user.entity.js";
 import { CreateUserValidator } from "../validators/create-user.validator.js";
-import { DatabaseConnections } from "../infra/database-connections.js";
-import { UserRepository } from "../repository/user.repository.js";
 
 export class CreateUserUseCase {
     #repository;

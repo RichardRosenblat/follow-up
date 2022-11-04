@@ -1,33 +1,22 @@
-
 import randomEmail from "random-email";
-import { DatabaseConnections } from "../../src/infra/database-connections.js";
-import { UserRepository } from "../../src/repository/user.repository.js";
-import { CreateUserUseCase } from "../../src/use-cases/create-user.js";
-import { getUserWithFormattedData } from "../util/getUserWithFormattedData.js";
-
+import { ClassesFactory } from "../util/classesFactory.js";
+import { getUserWithFormattedData } from "../util/getEntityWithFormattedData.js";
 
 async function testCreateUser() {
-    const connectionData = {
-        connectionString: "mongodb://localhost:27017",
-        databaseName: "follow-up",
-        collection: "users",
-    }
-    const db = await DatabaseConnections.connect(connectionData);
-    const repository = new UserRepository(db);
-    const createUser = new CreateUserUseCase(repository);
+    const { userCreate } = await ClassesFactory.getUserClasses();
 
     const specificEmail = randomEmail();
 
-    const regular = await createUser.execute("Fulano Of Tal", specificEmail, "qwertyuiop");
+    const regular = await userCreate.execute("Fulano Of Tal", specificEmail, "qwertyuiop");
 
-    const repeatedEmail = await createUser.execute("Fulano Of Tal", specificEmail, "qwertyuiop");
-    const invalidEmail = await createUser.execute("Fulano Of Tal", "invalid email", "qwertyuiop");
-    const tooShortPassword = await createUser.execute("Fulano Of Tal", randomEmail(), "12345");
+    const repeatedEmail = await userCreate.execute("Fulano Of Tal", specificEmail, "qwertyuiop");
+    const invalidEmail = await userCreate.execute("Fulano Of Tal", "invalid email", "qwertyuiop");
+    const tooShortPassword = await userCreate.execute("Fulano Of Tal", randomEmail(), "12345");
 
-    const noName = await createUser.execute("", randomEmail(), "qwertyuiop");
-    const noEmail = await createUser.execute("Fulano Of Tal", "", "qwertyuiop");
-    const noPassword = await createUser.execute("Fulano Of Tal", randomEmail(), "");
-    const noUserInfo = await createUser.execute("", "", "");
+    const noName = await userCreate.execute("", randomEmail(), "qwertyuiop");
+    const noEmail = await userCreate.execute("Fulano Of Tal", "", "qwertyuiop");
+    const noPassword = await userCreate.execute("Fulano Of Tal", randomEmail(), "");
+    const noUserInfo = await userCreate.execute("", "", "");
 
     console.log("Creating user: ", getUserWithFormattedData(regular));
 
@@ -44,7 +33,7 @@ async function testCreateUser() {
     console.log("No password: ", getUserWithFormattedData(noPassword));
     console.log("No user info: ", getUserWithFormattedData(noUserInfo));
 
-    DatabaseConnections.disconnect(connectionData)
+    await ClassesFactory.cleanUpTestDatabases();
 }
 
 testCreateUser();
