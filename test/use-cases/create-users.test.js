@@ -1,37 +1,39 @@
-
 import randomEmail from "random-email";
-import { AccountUtilsFactory } from "../factories/account-utils.factory.js";
+import { ClassesFactory } from "../util/classesFactory.js";
+import { getUserWithFormattedData } from "../util/getEntityWithFormattedData.js";
 
-function testCreateUser() {
-    const { createUser } = AccountUtilsFactory.getAccountRepositoryAndCreateUser();
+async function testCreateUser() {
+    const { userCreate } = await ClassesFactory.getUserClasses();
 
     const specificEmail = randomEmail();
 
-    const regular = createUser.execute("Fulano Of Tal", specificEmail, "qwertyuiop");
+    const regular = await userCreate.execute("Fulano Of Tal", specificEmail, "qwertyuiop");
 
-    const repeatedEmail = createUser.execute("Fulano Of Tal", specificEmail, "qwertyuiop");
-    const invalidEmail = createUser.execute("Fulano Of Tal", "invalid email", "qwertyuiop");
-    const tooShortPassword = createUser.execute("Fulano Of Tal", randomEmail(), "12345");
+    const repeatedEmail = await userCreate.execute("Fulano Of Tal", specificEmail, "qwertyuiop");
+    const invalidEmail = await userCreate.execute("Fulano Of Tal", "invalid email", "qwertyuiop");
+    const tooShortPassword = await userCreate.execute("Fulano Of Tal", randomEmail(), "12345");
 
-    const noName = createUser.execute("", randomEmail(), "qwertyuiop");
-    const noEmail = createUser.execute("Fulano Of Tal", "", "qwertyuiop");
-    const noPassword = createUser.execute("Fulano Of Tal", randomEmail(), "");
-    const noUserInfo = createUser.execute("", "", "");
+    const noName = await userCreate.execute("", randomEmail(), "qwertyuiop");
+    const noEmail = await userCreate.execute("Fulano Of Tal", "", "qwertyuiop");
+    const noPassword = await userCreate.execute("Fulano Of Tal", randomEmail(), "");
+    const noUserInfo = await userCreate.execute("", "", "");
 
-    console.log("Creating account: ", regular);
-
-    console.log("--------------------------------------");
-
-    console.log("Repeated email: ", repeatedEmail);
-    console.log("Invalid email: ", invalidEmail);
-    console.log("Password too short: ", tooShortPassword);
+    console.log("Creating user: ", getUserWithFormattedData(regular));
 
     console.log("--------------------------------------");
 
-    console.log("No name: ", noName);
-    console.log("No email: ", noEmail);
-    console.log("No password: ", noPassword);
-    console.log("No user info: ", noUserInfo);
+    console.log("Repeated email: ", getUserWithFormattedData(repeatedEmail));
+    console.log("Invalid email: ", getUserWithFormattedData(invalidEmail));
+    console.log("Password too short: ", getUserWithFormattedData(tooShortPassword));
+
+    console.log("--------------------------------------");
+
+    console.log("No name: ", getUserWithFormattedData(noName));
+    console.log("No email: ", getUserWithFormattedData(noEmail));
+    console.log("No password: ", getUserWithFormattedData(noPassword));
+    console.log("No user info: ", getUserWithFormattedData(noUserInfo));
+
+    await ClassesFactory.cleanUpTestDatabases();
 }
 
 testCreateUser();
