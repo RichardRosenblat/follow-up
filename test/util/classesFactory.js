@@ -47,7 +47,7 @@ export class ClassesFactory {
             });
 
             this.#postRepository = new PostsRepository(this.#postDb, userRepository);
-            this.#postCreate = new CreatePostUseCase(userRepository, this.#postRepository);
+            this.#postCreate = new CreatePostUseCase(this.#postRepository);
         }
         return {
             postDb: this.#postDb,
@@ -61,6 +61,6 @@ export class ClassesFactory {
             await this.#postDb.deleteMany({});
         }
 
-        DatabaseConnections.disconnect(this.#connectionData);
+        DatabaseConnections.disconnect();
     }
 }

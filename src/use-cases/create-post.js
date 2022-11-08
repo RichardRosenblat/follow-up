@@ -1,28 +1,27 @@
-import { ObjectId } from "mongodb";
+
 import { PostEntity } from "../entities/post.entity.js";
+import { UuidManager } from "../infra/uuidManager.js";
 import { CreatePostValidator } from "../validators/create-post.validator.js";
 
 export class CreatePostUseCase {
-	#userRepository;
-	#validator;
-	#postRepository;
+    #validator;
+    #postRepository;
 
-	constructor(userRepository, postRepository) {
-		this.#userRepository = userRepository;
-		this.#validator = new CreatePostValidator(this.#userRepository);
+    constructor(postRepository) {
+        this.#postRepository = postRepository;
 
-		this.#postRepository = postRepository;
-	}
+        this.#validator = new CreatePostValidator(this.#postRepository);
+    }
 
-	async execute(text, author_id) {
-		const validationResult = await this.#validator.execute(text, author_id);
+    async execute(text, author_id) {
+        const validationResult = await this.#validator.execute(text, author_id);
 
-		if (validationResult.hasErrors) {
-			return validationResult.errors.map((error) => error.message);
-		}
+        if (validationResult.hasErrors()) {
+            return validationResult.errors.map((error) => error.message);
+        }
 
-		const newPost = new PostEntity({ text, author_id: new ObjectId(author_id) });
+        const newPost = new PostEntity({ text, author_id: UuidManager.getUuid(author_id) });
 
-		return await this.#postRepository.save(newPost);
-	}
+        return await this.#postRepository.save(newPost);
+    }
 }

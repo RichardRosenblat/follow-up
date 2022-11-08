@@ -1,6 +1,5 @@
 import randomEmail from "random-email";
 import { ClassesFactory } from "../util/classesFactory.js";
-import { getUserWithFormattedData } from "../util/getEntityWithFormattedData.js";
 
 async function testCreateUser() {
     const { userCreate } = await ClassesFactory.getUserClasses();
@@ -18,20 +17,20 @@ async function testCreateUser() {
     const noPassword = await userCreate.execute("Fulano Of Tal", randomEmail(), "");
     const noUserInfo = await userCreate.execute("", "", "");
 
-    console.log("Creating user: ", getUserWithFormattedData(regular));
+    console.log("Creating user: ", regular.toLiteral());
 
     console.log("--------------------------------------");
 
-    console.log("Repeated email: ", getUserWithFormattedData(repeatedEmail));
-    console.log("Invalid email: ", getUserWithFormattedData(invalidEmail));
-    console.log("Password too short: ", getUserWithFormattedData(tooShortPassword));
+    console.log("Repeated email: ", repeatedEmail);
+    console.log("Invalid email: ", invalidEmail);
+    console.log("Password too short: ", tooShortPassword);
 
     console.log("--------------------------------------");
 
-    console.log("No name: ", getUserWithFormattedData(noName));
-    console.log("No email: ", getUserWithFormattedData(noEmail));
-    console.log("No password: ", getUserWithFormattedData(noPassword));
-    console.log("No user info: ", getUserWithFormattedData(noUserInfo));
+    console.log("No name: ", noName);
+    console.log("No email: ", noEmail);
+    console.log("No password: ", noPassword);
+    console.log("No user info: ", noUserInfo);
 
     await ClassesFactory.cleanUpTestDatabases();
 }
