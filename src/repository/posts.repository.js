@@ -4,8 +4,8 @@ export class PostsRepository {
     #postCollection;
     #userRepository;
 
-    constructor(postsDatabase, userRepository) {
-        this.#postCollection = postsDatabase;
+    constructor(postsCollection, userRepository) {
+        this.#postCollection = postsCollection;
         this.#userRepository = userRepository;
     }
 

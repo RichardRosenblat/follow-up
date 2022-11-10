@@ -5,8 +5,8 @@ import { UuidManager } from "../infra/uuidManager.js";
 export class UserRepository {
     #userCollection;
 
-    constructor(usersDatabase) {
-        this.#userCollection = usersDatabase;
+    constructor(userCollection) {
+        this.#userCollection = userCollection;
     }
 
     async list(params) {
