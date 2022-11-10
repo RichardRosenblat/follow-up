@@ -8,12 +8,15 @@ export class DatabaseConnections {
 		if (!this.#instance) {
 			try {
 				const client = new MongoClient(connectionString);
+				
 				client.on("open", () => {
-					this.#status = `Connected in: ${new Date().toISOString()}`;
+					this.#status = `Connected`;
 				});
+
 				client.on("topologyClosed", () => {
-					this.#status = `Disconnected in: ${new Date().toISOString()}`;
+					this.#status = `Disconnected`;
 				});
+
 				this.#instance = await client.connect();
 			} catch (error) {
 				throw new Error("Unnable to connect to given database string");

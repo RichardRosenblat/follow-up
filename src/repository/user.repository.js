@@ -9,8 +9,8 @@ export class UserRepository {
         this.#userCollection = userCollection;
     }
 
-    async list(params) {
-        const usersArray = await this.#userCollection.find(params).toArray();
+    async listAll() {
+        const usersArray = await this.#userCollection.find().toArray();
         return usersArray.map((user) => new UserEntity(user));
     }
 

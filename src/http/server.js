@@ -5,17 +5,16 @@ import { ServerRouter } from "./router.js";
 export class Server {
 	static #application;
 	static async start(port, databaseConnectionData) {
-		this.#application = express();
+		const app = express();
 
-		await ServerRouter.setAllRoutes(this.#application, databaseConnectionData);
-
-		this.#application.listen(port, () => {
+		await ServerRouter.setAllRoutes(app, databaseConnectionData);
+		this.#application = app.listen(port, () => {
 			console.log(`Follow-up server started successfully in http://localhost:${port}`);
 		});
 	}
 
 	static async shutdown() {
-		DatabaseConnections.disconnect();
 		this.#application.close();
+		DatabaseConnections.disconnect();
 	}
 }

@@ -9,8 +9,8 @@ export class PostsRepository {
         this.#userRepository = userRepository;
     }
 
-    async list(params) {
-        const postsArray = await this.#postCollection.find(params).toArray();
+    async listAll() {
+        const postsArray = await this.#postCollection.find().toArray();
         return postsArray.map((user) => new PostEntity(user));
     }
 

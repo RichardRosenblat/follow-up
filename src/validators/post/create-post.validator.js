@@ -1,6 +1,6 @@
 import validator from "validator";
-import { ValidationResultDTO } from "../dtos/validationResult.dto.js";
-import { UuidManager } from "../infra/uuidManager.js";
+import { ValidationResultDTO } from "../../dtos/validationResult.dto.js";
+import { UuidManager } from "../../infra/uuidManager.js";
 
 export class CreatePostValidator {
 	#postRepository;

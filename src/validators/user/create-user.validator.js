@@ -1,5 +1,5 @@
 import validator from "validator";
-import { ValidationResultDTO } from "../dtos/validationResult.dto.js";
+import { ValidationResultDTO } from "../../dtos/validationResult.dto.js";
 
 export class CreateUserValidator {
     #repository;

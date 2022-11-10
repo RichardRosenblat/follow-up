@@ -1,6 +1,6 @@
 import express from "express";
 import { DatabaseConnections } from "../infra/database-connections.js";
-import { UserController } from "./routes/userRoutes.js";
+import { UserController } from "./controllers/user.controller.js";
 
 export class ServerRouter {
 	static async setAllRoutes(app, databaseConnectionData) {
@@ -8,7 +8,7 @@ export class ServerRouter {
 			const dbHealth = DatabaseConnections.status;
 			res.status(200).send({ Server: "ok", Database: dbHealth  });
 		});
-		const userRoutes = await UserController.getRoutes(databaseConnectionData);
-		app.use(express.json(), userRoutes);
+		const userController = await UserController.getRoutes(databaseConnectionData);
+		app.use(express.json(), userController);
 	}
 }

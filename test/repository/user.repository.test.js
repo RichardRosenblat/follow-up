@@ -18,7 +18,7 @@ async function testRepository() {
 
     console.log("--------------------------------------");
     console.log("Saved users:");
-    console.log((await userRepository.list()).map((user) => user.toLiteral()));
+    console.log((await userRepository.listAll()).map((user) => user.toLiteral()));
     console.log(
         `Does the email '${specificEmail}' exists: `,
         Boolean(await userRepository.doesEmailAlreadyExist(specificEmail))

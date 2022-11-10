@@ -1,8 +1,8 @@
 import { DatabaseConnections } from "../../src/infra/database-connections.js";
 import { PostsRepository } from "../../src/repository/posts.repository.js";
 import { UserRepository } from "../../src/repository/user.repository.js";
-import { CreatePostUseCase } from "../../src/use-cases/create-post.js";
-import { CreateUserUseCase } from "../../src/use-cases/create-user.js";
+import { CreatePostUseCase } from "../../src/use-cases/post/create-post.js";
+import { CreateUserUseCase } from "../../src/use-cases/user/create-user.js";
 
 export class ClassesFactory {
     static #connectionData = {

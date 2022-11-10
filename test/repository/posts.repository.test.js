@@ -16,7 +16,7 @@ async function testRepository() {
     console.log("--------------------------------------------------");
     console.log(
         "Saved posts:",
-        (await postRepository.list()).map((post) => post.toLiteral())
+        (await postRepository.listAll()).map((post) => post.toLiteral())
     );
     console.log("--------------------------------------------------");
 

@@ -8,4 +8,5 @@ const connectionString = process.env.CONNECTIONSTRING || "mongodb://localhost:27
 const databaseName = process.env.DATABASENAME || "follow-up";
 
 Server.start(port, { connectionString, databaseName });
-process.on("exit", Server.shutdown);
+process.on("exit", Server.shutdown.bind(Server));
+process.on("SIGINT", Server.shutdown.bind(Server));
