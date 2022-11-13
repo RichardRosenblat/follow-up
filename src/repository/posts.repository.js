@@ -1,36 +1,40 @@
 import { PostEntity } from "../entities/post.entity.js";
 
 export class PostsRepository {
-    #db;
+    #postCollection;
     #userRepository;
 
-    constructor(postsDatabase, userRepository) {
-        this.#db = postsDatabase;
+    constructor(postsCollection, userRepository) {
+        this.#postCollection = postsCollection;
         this.#userRepository = userRepository;
     }
 
-    async list(params) {
-        const postsArray = await this.#db.find(params).toArray();
+    async listAll() {
+        const postsArray = await this.#postCollection.find().toArray();
         return postsArray.map((user) => new PostEntity(user));
     }
 
     async findFirst(params) {
-        const postFound = await this.#db.findOne(params);
+        const postFound = await this.#postCollection.findOne(params);
         return postFound ? new PostEntity(postFound) : postFound;
     }
 
     async save(postObject) {
-        await this.#userRepository.addPost(postObject.author_id, postObject._id);
-        await this.#db.insertOne(postObject.toLiteral());
-        return await this.findFirst({ _id: postObject._id });
+        await this.#userRepository.addPost(postObject.author_id, postObject.id);
+        await this.#postCollection.insertOne(postObject.toMongoDbDocument());
+        return await this.findFirst({ _id: postObject.id });
     }
 
     async updateOne(postId, alterations) {
-        await this.#db.updateOne({ _id: postId }, { $set: alterations });
+        await this.#postCollection.updateOne({ _id: postId }, { $set: alterations });
         return await this.findFirst({ _id: postId });
     }
 
     async deleteOne(postId) {
-        return (await this.#db.deleteOne({ _id: postId })).deletedCount;
+        return (await this.#postCollection.deleteOne({ _id: postId })).deletedCount;
+    }
+
+    async doesUserExists(userId) {
+        return await this.#userRepository.exists(userId);
     }
 }

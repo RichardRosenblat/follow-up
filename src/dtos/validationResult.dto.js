@@ -1,11 +1,7 @@
 export class ValidationResultDTO {
-	#hasErrors;
 	#errors;
 	#data;
 
-	get hasErrors() {
-		return this.#hasErrors;
-	}
 	get errors() {
 		return this.#errors;
 	}
@@ -14,23 +10,15 @@ export class ValidationResultDTO {
 	}
 
 	constructor(data) {
-		this.#hasErrors = false;
 		this.#errors = [];
 		this.#data = data;
 	}
 
-	addError({ field, message }) {
-		this.#hasErrors = true;
-		this.#errors.push({
-			field: field,
-			message: message,
-		});
+	hasErrors() {
+		return this.errors.length > 0;
 	}
-	toLiteral() {
-		return {
-			hasErrors: this.hasErrors,
-			errors: this.errors,
-			data: this.data,
-		};
+
+	addError({ field, message }) {
+		this.#errors.push({ field, message });
 	}
 }

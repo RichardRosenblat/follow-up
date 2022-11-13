@@ -1,7 +1,6 @@
 import randomEmail from "random-email";
 import { UserEntity } from "../../src/entities/user.entity.js";
 import { ClassesFactory } from "../util/classesFactory.js";
-import { getUserWithFormattedData } from "../util/getEntityWithFormattedData.js";
 
 async function testRepository() {
     const { userRepository, userCreate } = await ClassesFactory.getUserClasses();
@@ -19,7 +18,7 @@ async function testRepository() {
 
     console.log("--------------------------------------");
     console.log("Saved users:");
-    console.log((await userRepository.list()).map((user) => getUserWithFormattedData(user)));
+    console.log((await userRepository.listAll()).map((user) => user.toLiteral()));
     console.log(
         `Does the email '${specificEmail}' exists: `,
         Boolean(await userRepository.doesEmailAlreadyExist(specificEmail))
@@ -29,13 +28,13 @@ async function testRepository() {
     let CRUDTests = await userCreate.execute("Jhonn Doe", randomEmail(), "qwertyuiop");
     console.log(
         "Find one:",
-        getUserWithFormattedData(await userRepository.findFirst({ _id: CRUDTests._id }))
+        (await userRepository.findFirst({ _id: CRUDTests.id })).toLiteral()
     );
 
-    CRUDTests = await userRepository.updateOne(CRUDTests._id, { name: "Joanna Doe" });
-    console.log("Update one:", getUserWithFormattedData(CRUDTests));
+    CRUDTests = await userRepository.updateOne(CRUDTests.id, { name: "Joanna Doe" });
+    console.log("Update one:", CRUDTests.toLiteral());
 
-    console.log("Delete one:", await userRepository.deleteOne(CRUDTests._id));
+    console.log("Delete one:", await userRepository.deleteOne(CRUDTests.id));
 
     await ClassesFactory.cleanUpTestDatabases();
 }

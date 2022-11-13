@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/main.js",
+    "start:dev": "nodemon src/main.js"
   },
   "repository": {
     "type": "git",
@@ -18,8 +20,15 @@
   },
   "homepage": "https://github.com/RichardRosenblat/follow-up#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
     "mongodb": "^4.11.0",
     "random-email": "^1.0.3",
     "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "nodemon": "^2.0.20"
   }
 }

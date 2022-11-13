@@ -1,26 +1,38 @@
 import { MongoClient } from "mongodb";
 
 export class DatabaseConnections {
-    static #connections = {};
+	static #instance;
+	static #status;
 
-    
-    static async connect({ connectionString, databaseName, collection }) {
-        if (!this.#connections[connectionString]) {
-            try {
-                const client = new MongoClient(connectionString);
-                this.#connections[connectionString] = await client.connect();
-            } catch (error) {
-                throw new Error("Unnable to connect to given database string");
-            }
-        }
-        return this.#connections[connectionString].db(databaseName).collection(collection);
-    }
+	static async connect({ connectionString, databaseName, collection }) {
+		if (!this.#instance) {
+			try {
+				const client = new MongoClient(connectionString);
+				
+				client.on("open", () => {
+					this.#status = `Connected`;
+				});
 
-    static disconnect({ connectionString }) {
-        const connection = this.#connections[connectionString];
-        if (connection) {
-            connection.close();
-            delete this.#connections[connectionString];
-        }
-    }
+				client.on("topologyClosed", () => {
+					this.#status = `Disconnected`;
+				});
+
+				this.#instance = await client.connect();
+			} catch (error) {
+				throw new Error("Unnable to connect to given database string");
+			}
+		}
+		return this.#instance.db(databaseName).collection(collection);
+	}
+
+	static disconnect() {
+		if (this.#instance) {
+			this.#instance.close();
+			this.#instance = null;
+		}
+	}
+
+	static get status() {
+		return this.#status;
+	}
 }

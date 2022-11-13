@@ -1,8 +1,8 @@
 import { DatabaseConnections } from "../../src/infra/database-connections.js";
 import { PostsRepository } from "../../src/repository/posts.repository.js";
 import { UserRepository } from "../../src/repository/user.repository.js";
-import { CreatePostUseCase } from "../../src/use-cases/create-post.js";
-import { CreateUserUseCase } from "../../src/use-cases/create-user.js";
+import { CreatePostUseCase } from "../../src/use-cases/post/create-post.js";
+import { CreateUserUseCase } from "../../src/use-cases/user/create-user.js";
 
 export class ClassesFactory {
     static #connectionData = {
@@ -10,11 +10,11 @@ export class ClassesFactory {
         databaseName: "follow-up",
     };
 
-    static #userDb;
+    static #userCollection;
     static #userRepository;
     static #userCreate;
 
-    static #postDb;
+    static #postCollection;
     static #postRepository;
     static #postCreate;
 
@@ -23,44 +23,44 @@ export class ClassesFactory {
     }
 
     static async getUserClasses() {
-        if (!(this.#userDb || this.#userRepository || this.#userCreate)) {
-            this.#userDb = await DatabaseConnections.connect({
+        if (!(this.#userCollection || this.#userRepository || this.#userCreate)) {
+            this.#userCollection = await DatabaseConnections.connect({
                 ...this.#connectionData,
                 collection: "test_users",
             });
-            this.#userRepository = new UserRepository(this.#userDb);
+            this.#userRepository = new UserRepository(this.#userCollection);
             this.#userCreate = new CreateUserUseCase(this.#userRepository);
         }
 
         return {
-            userDb: this.#userDb,
+            userCollection: this.#userCollection,
             userRepository: this.#userRepository,
             userCreate: this.#userCreate,
         };
     }
     static async getPostClasses() {
         const { userRepository } = await this.getUserClasses();
-        if (!(this.#postDb || this.#postRepository || this.#postCreate)) {
-            this.#postDb = await DatabaseConnections.connect({
+        if (!(this.#postCollection || this.#postRepository || this.#postCreate)) {
+            this.#postCollection = await DatabaseConnections.connect({
                 ...this.#connectionData,
                 collection: "test_posts",
             });
 
-            this.#postRepository = new PostsRepository(this.#postDb, userRepository);
-            this.#postCreate = new CreatePostUseCase(userRepository, this.#postRepository);
+            this.#postRepository = new PostsRepository(this.#postCollection, userRepository);
+            this.#postCreate = new CreatePostUseCase(this.#postRepository);
         }
         return {
-            postDb: this.#postDb,
+            postCollection: this.#postCollection,
             postRepository: this.#postRepository,
             postCreate: this.#postCreate,
         };
     }
     static async cleanUpTestDatabases() {
-        await this.#userDb.deleteMany({});
-        if (this.#postDb) {
-            await this.#postDb.deleteMany({});
+        await this.#userCollection.deleteMany({});
+        if (this.#postCollection) {
+            await this.#postCollection.deleteMany({});
         }
 
-        DatabaseConnections.disconnect(this.#connectionData);
+        DatabaseConnections.disconnect();
     }
 }

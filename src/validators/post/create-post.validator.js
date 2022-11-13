@@ -1,28 +1,27 @@
-import { ObjectId } from "mongodb";
 import validator from "validator";
-import { ValidationResultDTO } from "../dtos/validationResult.dto.js";
+import { ValidationResultDTO } from "../../dtos/validationResult.dto.js";
+import { UuidManager } from "../../infra/uuidManager.js";
 
 export class CreatePostValidator {
-	#userRepository;
+	#postRepository;
 	#validations;
 
-	constructor(userRepository) {
-		this.#userRepository = userRepository;
+	constructor(postRepository) {
+		this.#postRepository = postRepository;
 		this.#validations = [
 			{
-				predicate: ({ text }) => validator.isEmpty(text),
+				predicate: async ({ text }) => validator.isEmpty(text),
 				field: "text",
 				message: "Text cannot be empty",
 			},
 			{
-				predicate: ({ author_id }) => !ObjectId.isValid(author_id),
+				predicate: async ({ author_id }) => !UuidManager.isValidUuid(author_id),
 				field: "author_id",
 				message: "Author id must be a valid ObjectId",
 			},
 			{
 				predicate: async ({ author_id }) =>
-					ObjectId.isValid(author_id) &&
-					!(await this.#userRepository.findFirst({ _id: new ObjectId(author_id) })),
+					UuidManager.isValidUuid(author_id) && !(await this.#postRepository.doesUserExists(author_id)),
 				field: "author_id",
 				message: "Author id must exist in database",
 			},

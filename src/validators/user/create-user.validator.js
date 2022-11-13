@@ -1,5 +1,5 @@
 import validator from "validator";
-import { ValidationResultDTO } from "../dtos/validationResult.dto.js";
+import { ValidationResultDTO } from "../../dtos/validationResult.dto.js";
 
 export class CreateUserValidator {
     #repository;
@@ -39,10 +39,31 @@ export class CreateUserValidator {
     async execute(name, email, password) {
         const validationResult = new ValidationResultDTO({ name, email, password });
 
-        for (let index = 0; index < this.#validations.length; index++) {
-            const validator = this.#validations[index];
-            if (await validator.predicate({ name, email, password })) {
-                validationResult.addError({ field: validator.field, message: validator.message });
+        if (!name || !email || !password) {
+            name ||
+                validationResult.addError({
+                    field: "name",
+                    message: "name must be defined",
+                });
+            email ||
+                validationResult.addError({
+                    field: "email",
+                    message: "email must be defined",
+                });
+            password ||
+                validationResult.addError({
+                    field: "password",
+                    message: "password must be defined",
+                });
+        } else {
+            for (let index = 0; index < this.#validations.length; index++) {
+                const validator = this.#validations[index];
+                if (await validator.predicate({ name, email, password })) {
+                    validationResult.addError({
+                        field: validator.field,
+                        message: validator.message,
+                    });
+                }
             }
         }
 
