@@ -8,6 +8,6 @@ export class ListAllUserRequest {
 	async execute(_req, res) {
 		const allUsers = await this.#listAllUserCase.execute();
 
-		res.status(200).send(allUsers.map((user) => user.toLiteral()));
+		res.status(200).send(allUsers);
 	}
 }

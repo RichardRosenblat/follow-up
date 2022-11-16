@@ -1,6 +1,6 @@
 import validator from "validator";
 import { ValidationResultDTO } from "../../dtos/validationResult.dto.js";
-import { UuidManager } from "../../infra/uuidManager.js";
+import { isValidId } from "../../infra/idManager.js";
 
 export class UpdateUserValidator {
     #repository;
@@ -10,13 +10,13 @@ export class UpdateUserValidator {
         this.#repository = userRepository;
         this.#idValidations = [
             {
-                predicate: async (userId) => !UuidManager.isValidUuid(userId),
+                predicate: async (userId) => !isValidId(userId),
                 field: "userId",
                 message: "Id must be a valid ObjectId",
             },
             {
                 predicate: async (userId) =>
-                    UuidManager.isValidUuid(userId) && !(await this.#repository.exists(userId)),
+                    isValidId(userId) && !(await this.#repository.exists(userId)),
                 field: "userId",
                 message: "Id must exist in database",
             },
@@ -108,7 +108,6 @@ export class UpdateUserValidator {
     async #runValidations(dataToValidate, validationResult, validationsArray) {
         for (let index = 0; index < validationsArray.length; index++) {
             const validator = validationsArray[index];
-            console.log(dataToValidate);
             if (await validator.predicate(dataToValidate)) {
                 validationResult.addError({
                     field: validator.field,

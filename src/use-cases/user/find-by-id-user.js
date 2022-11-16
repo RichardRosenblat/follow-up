@@ -1,4 +1,4 @@
-import { UuidManager } from "../../infra/uuidManager.js";
+import { UserDTO } from "../../dtos/user.dto.js";
 import { FindByIdUserValidator } from "../../validators/user/find-by-id-user.validator.js";
 
 export class FindByIdUserUseCase {
@@ -16,6 +16,7 @@ export class FindByIdUserUseCase {
             return validationResult.errors.map(({ message }) => message);
         }
 
-        return await this.#repository.findFirst({ _id: UuidManager.getUuid(userId) });
+        const foundUser = await this.#repository.findById(userId);
+        return new UserDTO(foundUser)
     }
 }

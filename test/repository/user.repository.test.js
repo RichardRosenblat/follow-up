@@ -26,15 +26,12 @@ async function testRepository() {
     console.log("--------------------------------------");
 
     let CRUDTests = await userCreate.execute("Jhonn Doe", randomEmail(), "qwertyuiop");
-    console.log(
-        "Find one:",
-        (await userRepository.findFirst({ _id: CRUDTests.id })).toLiteral()
-    );
+    console.log("Find by Id:", (await userRepository.findById(CRUDTests.id)).toLiteral());
 
     CRUDTests = await userRepository.updateOne(CRUDTests.id, { name: "Joanna Doe" });
     console.log("Update one:", CRUDTests.toLiteral());
 
-    console.log("Delete one:", await userRepository.deleteOne(CRUDTests.id));
+    console.log("Delete one count:", await userRepository.deleteOne(CRUDTests.id));
 
     await ClassesFactory.cleanUpTestDatabases();
 }

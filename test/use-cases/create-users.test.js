@@ -17,7 +17,7 @@ async function testCreateUser() {
 	const noPassword = await userCreate.execute("Fulano Of Tal", randomEmail(), "");
 	const noUserInfo = await userCreate.execute("", "", "");
 
-	console.log("Creating user: ", regular.toLiteral());
+	console.log("Creating user: ", regular);
 
 	console.log("--------------------------------------");
 

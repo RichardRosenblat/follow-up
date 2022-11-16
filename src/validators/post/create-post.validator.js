@@ -1,6 +1,6 @@
 import validator from "validator";
 import { ValidationResultDTO } from "../../dtos/validationResult.dto.js";
-import { UuidManager } from "../../infra/uuidManager.js";
+import { isValidId } from "../../infra/idManager.js";
 
 export class CreatePostValidator {
 	#postRepository;
@@ -15,13 +15,13 @@ export class CreatePostValidator {
 				message: "Text cannot be empty",
 			},
 			{
-				predicate: async ({ author_id }) => !UuidManager.isValidUuid(author_id),
+				predicate: async ({ author_id }) => !isValidId(author_id),
 				field: "author_id",
 				message: "Author id must be a valid ObjectId",
 			},
 			{
 				predicate: async ({ author_id }) =>
-					UuidManager.isValidUuid(author_id) && !(await this.#postRepository.doesUserExists(author_id)),
+					isValidId(author_id) && !(await this.#postRepository.doesUserExists(author_id)),
 				field: "author_id",
 				message: "Author id must exist in database",
 			},

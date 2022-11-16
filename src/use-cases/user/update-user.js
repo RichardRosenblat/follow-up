@@ -1,5 +1,6 @@
 import { UpdateUserValidator } from "../../validators/user/update-user.validator.js";
 import bcrypt from "bcrypt";
+import { UserDTO } from "../../dtos/user.dto.js";
 export class UpdateUserUseCase {
     #repository;
     #validator;
@@ -19,6 +20,7 @@ export class UpdateUserUseCase {
             updateInfo.password = bcrypt.hashSync(updateInfo.password, 10);
         }
 
-        return await this.#repository.updateOne(userId,updateInfo);
+        const updatedUser = await this.#repository.updateOne(userId, updateInfo);
+        return new UserDTO(updatedUser);
     }
 }

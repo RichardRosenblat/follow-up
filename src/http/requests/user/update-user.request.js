@@ -12,10 +12,9 @@ export class UpdateUserRequest {
             const updateUserResult = await this.#updateUserUseCase.execute(id, updateInfo);
 
             if (Array.isArray(updateUserResult)) {
-                res.status(400).send(updateUserResult);
-            } else {
-                res.status(201).send(updateUserResult.toLiteral());
+                return res.status(400).send(updateUserResult);
             }
+            return res.status(201).send(updateUserResult);
         } catch (error) {
             console.error(error);
             res.status(500).send({ error: "Internal Server Error", message: error.message });

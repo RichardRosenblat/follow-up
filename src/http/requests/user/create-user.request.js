@@ -11,10 +11,9 @@ export class CreateUserRequest {
             const createUserResult = await this.#createUserUseCase.execute(name, email, password);
 
             if (Array.isArray(createUserResult)) {
-                res.status(400).send(createUserResult);
-            } else {
-                res.status(201).send(createUserResult.toLiteral());
+                return res.status(400).send(createUserResult);
             }
+            return res.status(201).send(createUserResult);
         } catch (error) {
             console.error(error);
             res.status(500).send({ error: "Internal Server Error", message: error.message });
