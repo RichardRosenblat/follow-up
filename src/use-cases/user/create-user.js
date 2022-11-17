@@ -14,7 +14,7 @@ export class CreateUserUseCase {
     async execute(name, email, password) {
         const validationResult = await this.#validator.execute(name, email, password);
         if (validationResult.hasErrors()) {
-            return validationResult.errors.map(({ message }) => message);
+            return validationResult.errors;
         }
 
         const encryptedPasword = bcrypt.hashSync(password, 10);

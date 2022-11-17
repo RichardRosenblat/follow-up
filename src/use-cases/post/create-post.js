@@ -17,7 +17,7 @@ export class CreatePostUseCase {
         const validationResult = await this.#validator.execute(text, author_id);
 
         if (validationResult.hasErrors()) {
-            return validationResult.errors.map(({ message }) => message);
+            return validationResult.errors;
         }
 
         const newPost = new PostEntity({ text, author_id: getId(author_id) });

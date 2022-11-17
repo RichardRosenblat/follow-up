@@ -11,13 +11,13 @@ export class UpdateUserValidator {
         this.#idValidations = [
             {
                 predicate: async (userId) => !isValidId(userId),
-                field: "userId",
+                field: "id",
                 message: "Id must be a valid ObjectId",
             },
             {
                 predicate: async (userId) =>
                     isValidId(userId) && !(await this.#repository.exists(userId)),
-                field: "userId",
+                field: "id",
                 message: "Id must exist in database",
             },
         ];
@@ -67,7 +67,7 @@ export class UpdateUserValidator {
 
     async #validateId(userId, validationResult) {
         if (!userId) {
-            validationResult.addError({ field: "userId", message: "Id must be defined" });
+            validationResult.addError({ field: "id", message: "Id must be defined" });
             return;
         }
 

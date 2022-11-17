@@ -76,6 +76,6 @@ export class CreateUserValidator {
     }
 
     #hasNotDefinedRequiredFields({ name, email, password }) {
-        return !name || !email || !password;
+        return (!email && email !== "") || (!name && name !== "") || (!password && password !== "");
     }
 }

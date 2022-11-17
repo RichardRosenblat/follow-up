@@ -13,7 +13,7 @@ export class UpdateUserUseCase {
     async execute(userId, updateInfo) {
         const validationResult = await this.#validator.execute(userId, updateInfo);
         if (validationResult.hasErrors()) {
-            return validationResult.errors.map(({ message }) => message);
+            return validationResult.errors;
         }
 
         if (updateInfo.password) {

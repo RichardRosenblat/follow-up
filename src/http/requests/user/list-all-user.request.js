@@ -1,13 +1,13 @@
 export class ListAllUserRequest {
-	#listAllUserCase;
+    #listAllUserCase;
 
-	constructor(listAllUserCase) {
-		this.#listAllUserCase = listAllUserCase;
-	}
+    constructor(listAllUserCase) {
+        this.#listAllUserCase = listAllUserCase;
+    }
 
-	async execute(_req, res) {
-		const allUsers = await this.#listAllUserCase.execute();
+    async execute(_req, res) {
+        const allUsers = await this.#listAllUserCase.execute();
 
-		res.status(200).send(allUsers);
-	}
+        res.status(200).send(allUsers);
+    }
 }

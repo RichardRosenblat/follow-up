@@ -13,10 +13,10 @@ export class FindByIdUserUseCase {
         const validationResult = await this.#validator.execute(userId);
 
         if (validationResult.hasErrors()) {
-            return validationResult.errors.map(({ message }) => message);
+            return validationResult.errors;
         }
 
         const foundUser = await this.#repository.findById(userId);
-        return new UserDTO(foundUser)
+        return new UserDTO(foundUser);
     }
 }
