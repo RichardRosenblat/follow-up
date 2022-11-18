@@ -8,8 +8,8 @@
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
     "test": "jest --verbose",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage"
+    "test:watch": "jest --watch --verbose",
+    "test:cov": "jest --coverage --verbose"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "express": "^4.18.2",
     "mongodb": "^4.11.0",
     "random-email": "^1.0.3",
+    "supertest": "^6.3.1",
     "validator": "^13.7.0"
   },
   "devDependencies": {
