@@ -11,6 +11,8 @@ export async function start(port, databaseConnectionData) {
     application = app.listen(port, () => {
         console.log(`Follow-up server started successfully in http://localhost:${port}`);
     });
+
+    return app
 }
 
 export async function shutdown() {

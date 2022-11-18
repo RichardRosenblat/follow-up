@@ -75,6 +75,7 @@ export class UpdateUserValidator {
     }
 
     async #validateUpdateInfo(updateInfo, validationResult) {
+
         if (!(updateInfo.name || updateInfo.email || updateInfo.password)) {
             validationResult.addError({
                 field: "Name, email, password",
@@ -83,7 +84,7 @@ export class UpdateUserValidator {
             return;
         }
         if (updateInfo.name) {
-            await this.#runValidations(
+        await this.#runValidations(
                 updateInfo.name,
                 validationResult,
                 this.#updateInfoValidations.name

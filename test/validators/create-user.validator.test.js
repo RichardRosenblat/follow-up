@@ -28,10 +28,11 @@ describe("Validations of user creation", () => {
 	});
 
 	it("Should return validation Object with errors that contain a field and a message when input is invalid", async () => {
-		const validationResult = await validator.execute("", "notemail", "1234");
+		const validationResult = await validator.execute("", "notemail", "");
 		expect(validationResult.errors).toStrictEqual(
 			expect.arrayContaining([
 				{ field: "name", message: "Name cannot be empty" },
+				{ field: "password", message: "Password cannot be empty" },
 				{ field: "password", message: "Password must be minimum 8 caracters" },
 				{ field: "email", message: "Email must be a valid email adress" },
 			])

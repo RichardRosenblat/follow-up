@@ -31,4 +31,24 @@ describe("Create user use case", () => {
 			expect.arrayContaining([{ field: "password", message: "Password must be minimum 8 caracters" }])
 		);
 	});
+	it("Should return an array of errors containing objects with field and message when input is undefined", async () => {
+		const user = await createUser.execute();
+		expect(user).not.toHaveLength(0);
+		expect(user).toStrictEqual(
+			expect.arrayContaining([
+				{
+					field: "name",
+					message: "name must be defined",
+				},
+				{
+					field: "email",
+					message: "email must be defined",
+				},
+				{
+					field: "password",
+					message: "password must be defined",
+				},
+			])
+		);
+	});
 });

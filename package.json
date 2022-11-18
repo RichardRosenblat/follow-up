@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
-    "test": "jest --verbose",
+    "test": "jest --verbose ",
     "test:watch": "jest --watch --verbose",
     "test:cov": "jest --coverage --verbose"
   },
@@ -21,6 +21,11 @@
     "url": "https://github.com/RichardRosenblat/follow-up/issues"
   },
   "homepage": "https://github.com/RichardRosenblat/follow-up#readme",
+  "jest": {
+    "coveragePathIgnorePatterns" : [
+      "test/util/mongoDbDriverMock.js"
+    ]
+},
   "dependencies": {
     "@babel/preset-env": "^7.20.2",
     "bcrypt": "^5.1.0",
