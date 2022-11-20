@@ -1,6 +1,7 @@
 import { UserEntity } from "../../entities/user.entity.js";
 import { CreateUserValidator } from "../../validators/user/create-user.validator.js";
 import bcrypt from "bcrypt";
+import { UserDTO } from "../../dtos/user.dto.js";
 export class CreateUserUseCase {
     #repository;
     #validator;
@@ -13,12 +14,13 @@ export class CreateUserUseCase {
     async execute(name, email, password) {
         const validationResult = await this.#validator.execute(name, email, password);
         if (validationResult.hasErrors()) {
-            return validationResult.errors.map(({ message }) => message);
+            return validationResult.errors;
         }
 
         const encryptedPasword = bcrypt.hashSync(password, 10);
-        
+
         const newUser = new UserEntity({ name, email, password: encryptedPasword });
-        return await this.#repository.save(newUser);
+        const createdUser = await this.#repository.save(newUser);
+        return new UserDTO(createdUser);
     }
 }

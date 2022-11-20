@@ -1,4 +1,4 @@
-import { UuidManager } from "../infra/uuidManager.js";
+import { getId } from "../infra/idManager.js";
 
 export class UserEntity {
     #_id;
@@ -28,32 +28,23 @@ export class UserEntity {
     }
 
     constructor({ _id, name, email, password, posts, creationDate }) {
-        this.#_id = UuidManager.getUuid(_id);
+        this.#_id = getId(_id);
         this.#name = name;
         this.#email = email;
         this.#password = password;
-        this.#posts = posts ? posts.map((post) => UuidManager.getUuid(post)) : [];
+        this.#posts = posts ? posts.map((post) => getId(post)) : [];
         this.#creationDate = creationDate ? new Date(creationDate) : new Date();
 
         Object.freeze(this.#posts);
         Object.freeze(this.#creationDate);
     }
 
-    toMongoDbDocument() {
+    toLiteral() {
         return {
-            _id: this.id,
+            _id: this.id.toHexString(),
             name: this.name,
             email: this.email,
             password: this.password,
-            posts: this.posts,
-            creationDate: this.creationDate,
-        };
-    }
-
-    toLiteral() {
-        return {
-            ...this.toMongoDbDocument(),
-            _id: this.id.toHexString(),
             posts: this.posts.map((postId) => postId.toHexString()),
             creationDate: this.creationDate.toISOString().slice(0, 10),
         };

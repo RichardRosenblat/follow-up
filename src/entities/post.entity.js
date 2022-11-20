@@ -1,4 +1,4 @@
-import { UuidManager } from "../infra/uuidManager.js";
+import { getId } from "../infra/idManager.js";
 
 export class PostEntity {
     #_id;
@@ -20,27 +20,18 @@ export class PostEntity {
     }
 
     constructor({ _id, text, author_id, creationDate }) {
-        this.#_id = UuidManager.getUuid(_id);
+        this.#_id = getId(_id);
         this.#text = text;
-        this.#author_id = UuidManager.getUuid(author_id);
+        this.#author_id = getId(author_id);
         this.#creationDate = creationDate ? new Date(creationDate) : new Date();
 
         Object.freeze(this.#creationDate);
     }
 
-    toMongoDbDocument() {
-        return {
-            _id: this.id,
-            text: this.text,
-            author_id: this.author_id,
-            creationDate: this.creationDate,
-        };
-    }
-
     toLiteral() {
         return {
-            ...this.toMongoDbDocument(),
             _id: this.id.toHexString(),
+            text: this.text,
             author_id: this.author_id.toHexString(),
             creationDate: this.creationDate.toISOString().slice(0, 10),
         };

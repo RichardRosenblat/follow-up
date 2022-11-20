@@ -1,4 +1,4 @@
-
+import { UserDTO } from "../../dtos/user.dto.js";
 
 export class ListAllUserUseCase {
     #repository;
@@ -8,6 +8,7 @@ export class ListAllUserUseCase {
     }
 
     async execute() {
-        return await this.#repository.listAll();
+        const allUsers = await this.#repository.listAll();
+        return allUsers.map((userEntity) => new UserDTO(userEntity));
     }
 }

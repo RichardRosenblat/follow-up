@@ -12,58 +12,52 @@ import { FindByIdUserRequest } from "../requests/user/find-by-id-user.request.js
 import { ListAllUserRequest } from "../requests/user/list-all-user.request.js";
 import { UpdateUserRequest } from "../requests/user/update-user.request.js";
 
-export class UserController {
-    static #usersCollection;
-    static #userRepository;
+let usersCollection;
+let userRepository;
 
-    static async instanceUserResources(databaseConnectionData) {
-        this.#usersCollection = await DatabaseConnections.connect({
-            ...databaseConnectionData,
-            collection: "users",
-        });
-        this.#userRepository = new UserRepository(this.#usersCollection);
-    }
+export async function getRoutes(databaseConnectionData) {
+    await instanceUserResources(databaseConnectionData);
+    const router = express.Router();
 
-    static async getRoutes(databaseConnectionData) {
-        await UserController.instanceUserResources(databaseConnectionData);
-        const router = express.Router();
+    setListAllRoute(router);
+    setFindByIdRoute(router);
+    setCreateUserRoute(router);
+    setUpdateRoute(router);
+    setDeleteRoute(router);
 
-        UserController.setListAllRoute(router);
-        UserController.setFindByIdRoute(router);
-        UserController.setCreateUserRoute(router);
-        UserController.setUpdateRoute(router);
-        UserController.setDeleteRoute(router);
+    return router;
+}
 
-        return router;
-    }
+async function instanceUserResources(databaseConnectionData) {
+    usersCollection = await DatabaseConnections.connect({
+        ...databaseConnectionData,
+        collection: "users",
+    });
+    userRepository = new UserRepository(usersCollection);
+}
 
-    static setListAllRoute(router) {
-        const listAllUser = new ListAllUserUseCase(this.#userRepository);
-        const listRequest = new ListAllUserRequest(listAllUser);
-        router.get("/users", listRequest.execute.bind(listRequest));
-    }
-
-    static setFindByIdRoute(router) {
-        const findByIdUser = new FindByIdUserUseCase(this.#userRepository);
-        const findByIdRequest = new FindByIdUserRequest(findByIdUser);
-        router.get("/users/:id", findByIdRequest.execute.bind(findByIdRequest));
-    }
-
-    static setCreateUserRoute(router) {
-        const createUser = new CreateUserUseCase(this.#userRepository);
-        const createRequest = new CreateUserRequest(createUser);
-        router.post("/users", createRequest.execute.bind(createRequest));
-    }
-
-    static setUpdateRoute(router) {
-        const updateUser = new UpdateUserUseCase(this.#userRepository);
-        const updateRequest = new UpdateUserRequest(updateUser);
-        router.put("/users/:id", updateRequest.execute.bind(updateRequest));
-    }
-
-    static setDeleteRoute(router) {
-        const deleteUser = new DeleteUserUseCase(this.#userRepository);
-        const deleteRequest = new DeleteUserRequest(deleteUser);
-        router.delete("/users/:id", deleteRequest.execute.bind(deleteRequest));
-    }
+function setListAllRoute(router) {
+    const listAllUser = new ListAllUserUseCase(userRepository);
+    const listRequest = new ListAllUserRequest(listAllUser);
+    router.get("/users", (req, res) => listRequest.execute(req, res));
+}
+function setFindByIdRoute(router) {
+    const findByIdUser = new FindByIdUserUseCase(userRepository);
+    const findByIdRequest = new FindByIdUserRequest(findByIdUser);
+    router.get("/users/:id", (req, res) => findByIdRequest.execute(req, res));
+}
+function setCreateUserRoute(router) {
+    const createUser = new CreateUserUseCase(userRepository);
+    const createRequest = new CreateUserRequest(createUser);
+    router.post("/users", (req, res) => createRequest.execute(req, res));
+}
+function setUpdateRoute(router) {
+    const updateUser = new UpdateUserUseCase(userRepository);
+    const updateRequest = new UpdateUserRequest(updateUser);
+    router.put("/users/:id", (req, res) => updateRequest.execute(req, res));
+}
+function setDeleteRoute(router) {
+    const deleteUser = new DeleteUserUseCase(userRepository);
+    const deleteRequest = new DeleteUserRequest(deleteUser);
+    router.delete("/users/:id", (req, res) => deleteRequest.execute(req, res));
 }

@@ -4,10 +4,13 @@ import { UserRepository } from "../../src/repository/user.repository.js";
 import { CreatePostUseCase } from "../../src/use-cases/post/create-post.js";
 import { CreateUserUseCase } from "../../src/use-cases/user/create-user.js";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 export class ClassesFactory {
     static #connectionData = {
-        connectionString: "mongodb://localhost:27017",
-        databaseName: "follow-up",
+        connectionString: process.env.CONNECTIONSTRING || "mongodb://localhost:27017",
+        databaseName: process.env.DATABASENAME || "follow-up",
     };
 
     static #userCollection;

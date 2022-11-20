@@ -1,6 +1,6 @@
 import randomEmail from "random-email";
 import { ClassesFactory } from "../util/classesFactory.js";
-import { UuidManager } from "../../src/infra/uuidManager.js";
+import { getId } from "../../src/infra/idManager.js";
 
 async function testRepository() {
     const { userCreate } = await ClassesFactory.getUserClasses();
@@ -20,17 +20,17 @@ async function testRepository() {
     );
     console.log("--------------------------------------------------");
 
-    const randomText = UuidManager.getUuid().toHexString();
-    await postCreate.execute(randomText, user.id);
+    const randomText = getId().toHexString();
+    const createdPost = await postCreate.execute(randomText, user.id);
 
-    const firstFound = await postRepository.findFirst({ text: randomText });
-    console.log("Find one:", firstFound.toLiteral());
+    const foundById = await postRepository.findById(createdPost.id);
+    console.log("Find by id:", foundById.toLiteral());
 
-    const updatedOne = await postRepository.updateOne(firstFound.id, { text: "this is post 5" });
+    const updatedOne = await postRepository.updateOne(foundById.id, { text: "this is post 5" });
     console.log("Update one:", updatedOne.toLiteral());
 
     const deletedOne = await postRepository.deleteOne(updatedOne.id);
-    console.log("Delete one:", deletedOne);
+    console.log("Delete one count:", deletedOne);
 
     await ClassesFactory.cleanUpTestDatabases();
 }
