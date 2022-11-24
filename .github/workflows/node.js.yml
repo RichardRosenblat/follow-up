@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  run_jest_tests:
+  run_accounts_jest_tests:
 
     runs-on: ubuntu-latest
 
@@ -26,5 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: cd accounts
     - run: npm ci
     - run: npm test

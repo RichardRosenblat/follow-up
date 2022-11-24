@@ -6,6 +6,7 @@ jest.mock("mongodb");
 const disconnect = jest.fn();
 
 beforeAll(() => {
+	jest.spyOn(console, "log").mockImplementation(() => {});
 	MongoClient.mockImplementation((connectionString) => {
 		const mock = new mongoDbClientMock(connectionString);
 		mock.on("topologyClosed", disconnect);
