@@ -94,7 +94,6 @@ Project developed during weeks 1 and 5 of the bootcamp.​
               "name": "Richard Rosenblat",
               "email": "imadethis@code.com",
               "password": "$2b$10$ullU5sGQ/gRLcac5MeB7aOxCknUCh6.rjW1.mhbXeTKCVR2cXbkCe", 
-              "posts": [],
               "creationDate": "2022-11-16"
           }
       ]
@@ -113,7 +112,6 @@ Project developed during weeks 1 and 5 of the bootcamp.​
               "name": "Richard Rosenblat",
               "email": "imadethis@code.com",
               "password": "$2b$10$ullU5sGQ/gRLcac5MeB7aOxCknUCh6.rjW1.mhbXeTKCVR2cXbkCe", 
-              "posts": [],
               "creationDate": "2022-11-16"
           }    
       ```
@@ -156,7 +154,6 @@ Project developed during weeks 1 and 5 of the bootcamp.​
               "email": "imadethis@code.com",
               // This field is encripted automatically.
               "password": "$2b$10$ullU5sGQ/gRLcac5MeB7aOxCknUCh6.rjW1.mhbXeTKCVR2cXbkCe", 
-              "posts": [],
               "creationDate": "2022-11-16"
           }    
       ```
@@ -208,7 +205,6 @@ Project developed during weeks 1 and 5 of the bootcamp.​
               "email": "imadethis@code.com",
               // This field is encripted automatically
               "password": "$2b$10$ullU5sGQ/gRLcac5MeB7aOxCknUCh6.rjW1.mhbXeTKCVR2cXbkCe", 
-              "posts": [],
               "creationDate": "2022-11-16"
           }    
       ```
