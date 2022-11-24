@@ -12,6 +12,7 @@
   "type": "module",
   "dependencies": {
     "@babel/preset-env": "^7.20.2",
+    "bson-objectid": "^2.0.4",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.25.8",
