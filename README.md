@@ -4,6 +4,7 @@
 ![repo size](https://img.shields.io/github/repo-size/RichardRosenblat/follow-up?style=for-the-badge)
 ![code size](https://img.shields.io/github/languages/code-size/RichardRosenblat/follow-up?style=for-the-badge)
 ![total lines](https://img.shields.io/tokei/lines/github/RichardRosenblat/follow-up?style=for-the-badge)
+[![Follow up Node.js CI](https://github.com/RichardRosenblat/follow-up/actions/workflows/node.js.yml/badge.svg)](https://github.com/RichardRosenblat/follow-up/actions/workflows/node.js.yml)
 > Production project: <https://follow-up.onrender.com>  
 
 ​
