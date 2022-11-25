@@ -1,24 +1,40 @@
 {
-  "name": "stories",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "@babel/preset-env": "^7.20.2",
-    "bson-objectid": "^2.0.4",
-    "pg": "^8.8.0",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.25.8",
-    "sequelize-cli": "^6.5.2"
-  },
-  "devDependencies": {
-    "jest": "^29.3.1"
-  }
+	"name": "follow-up",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose ",
+		"test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --verbose ",
+		"test:cov": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --verbose "
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/RichardRosenblat/follow-up.git"
+	},
+	"bugs": {
+		"url": "https://github.com/RichardRosenblat/follow-up/issues"
+	},
+	"homepage": "https://github.com/RichardRosenblat/follow-up#readme",
+	"jest": {
+		"coveragePathIgnorePatterns": [
+			"./tests/mocks/"
+		]
+	},
+	"type": "module",
+	"dependencies": {
+		"bson-objectid": "^2.0.4",
+		"dotenv": "^16.0.3",
+		"pg": "^8.8.0",
+		"pg-hstore": "^2.3.4",
+		"sequelize": "^6.25.8",
+		"sequelize-cli": "^6.5.2",
+		"uuid": "^9.0.0"
+	},
+	"devDependencies": {
+		"jest": "^29.3.1"
+	}
 }
