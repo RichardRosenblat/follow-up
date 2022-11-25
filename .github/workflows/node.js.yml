@@ -11,6 +11,7 @@ on:
 
 jobs:
   run_accounts_jest_tests:
+    name: Run accounts' tests
 
     runs-on: ubuntu-latest
 
@@ -29,3 +30,25 @@ jobs:
         cache-dependency-path: './accounts/package-lock.json'
     - run: npm ci --prefix accounts
     - run: npm test --prefix accounts
+    
+  run_stories_tests:
+    name: Run stories' tests
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: './stories/package-lock.json'
+    - run: npm ci --prefix stories
+    - run: npm test --prefix stories
+
