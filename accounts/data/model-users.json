@@ -1,0 +1,13 @@
+{
+	"_id": {
+		"$oid": "63611dc4e375b040dc3dd020"
+	},
+	"name": "roberto",
+	"email": "roberto@gmail.com ",
+	"password": "password",
+	"creationDate": {
+		"$date": {
+			"$numberLong": "1667260800000"
+		}
+	}
+}

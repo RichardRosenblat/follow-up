@@ -1,0 +1,45 @@
+{
+  "name": "follow-up",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "start:dev": "nodemon src/main.js",
+    "test": "jest --verbose ",
+    "test:watch": "jest --watch --verbose",
+    "test:cov": "jest --coverage --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RichardRosenblat/follow-up.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RichardRosenblat/follow-up/issues"
+  },
+  "homepage": "https://github.com/RichardRosenblat/follow-up#readme",
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "test/util/mongoClientMock.js",
+      "test/util/mongoDbDriverMock.js"
+    ]
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^4.11.0",
+    "random-email": "^1.0.3",
+    "supertest": "^6.3.1",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.20"
+  }
+}

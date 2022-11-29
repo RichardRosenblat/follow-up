@@ -10,7 +10,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  run_jest_tests:
+  run_accounts_jest_tests:
+    name: Run accounts' tests
 
     runs-on: ubuntu-latest
 
@@ -26,5 +27,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm test
+        cache-dependency-path: './accounts/package-lock.json'
+    - run: npm ci --prefix accounts
+    - run: npm test --prefix accounts
+    
