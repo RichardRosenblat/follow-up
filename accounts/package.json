@@ -23,8 +23,7 @@
   "homepage": "https://github.com/RichardRosenblat/follow-up#readme",
   "jest": {
     "coveragePathIgnorePatterns": [
-      "test/util/mongoClientMock.js",
-      "test/util/mongoDbDriverMock.js"
+      ".+Mock.js"
     ]
   },
   "dependencies": {
