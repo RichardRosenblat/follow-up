@@ -4,6 +4,12 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"compile": "tsc",
+		"watch": "tsc -w",
+		"migrate": "node \"dist/database/migrations/index.js\" up",
+		"seed": "node \"dist/database/seeds/index.js\" up",
+		"migrate:undo": "node \"dist/database/migrations/index.js\" down",
+		"seed:undo": "node \"dist/database/seeds/index.js\" down",
 		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose ",
 		"test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --verbose ",
 		"test:cov": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --verbose "
@@ -24,17 +30,20 @@
 			"./tests/mocks/"
 		]
 	},
-	"type": "module",
 	"dependencies": {
 		"bson-objectid": "^2.0.4",
 		"dotenv": "^16.0.3",
 		"pg": "^8.8.0",
 		"pg-hstore": "^2.3.4",
 		"sequelize": "^6.25.8",
-		"sequelize-cli": "^6.5.2",
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
-		"jest": "^29.3.1"
+		"@types/node": "^18.11.10",
+		"@types/uuid": "^9.0.0",
+		"jest": "^29.3.1",
+		"sequelize-cli": "^6.5.2",
+		"ts-node": "^10.9.1",
+		"typescript": "^4.9.3"
 	}
 }

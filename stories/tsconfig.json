@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "ES5",
+        "removeComments": true,
+        "strictNullChecks": true,
+        "noEmitOnError": true,
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true
+    },
+    "include": ["./src/**/*"]
+}
