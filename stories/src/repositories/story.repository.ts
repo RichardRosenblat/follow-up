@@ -9,18 +9,18 @@ export class StoryRepository {
     async listAll(): Promise<IStory[]> {
         return (await this.database.Story.findAll()).map((story) => story?.dataValues);
     }
-    async findById(id: string): Promise<IStory> {
-        return (await this.database.Story.findOne({ where: { id: id } }))?.dataValues;
+    async findById(uuid: string): Promise<IStory> {
+        return (await this.database.Story.findOne({ where: { id: uuid } }))?.dataValues;
     }
     async create(story: ICreateStory): Promise<IStory> {
         return (await this.database.Story.create({ ...story, id: story.id || v4() }))?.dataValues;
     }
-    async update(id: string, updateInfo: IUpdateStory): Promise<IStory> {
-        await this.database.Story.update(updateInfo, { where: { id: id } });
-        return (await this.database.Story.findOne({ where: { id: id } }))?.dataValues;
+    async update(uuid: string, updateInfo: IUpdateStory): Promise<IStory> {
+        await this.database.Story.update(updateInfo, { where: { id: uuid } });
+        return (await this.database.Story.findOne({ where: { id: uuid } }))?.dataValues;
     }
-    async delete(id: string): Promise<void> {
-        await this.database.Story.destroy({ where: { id: id } });
+    async delete(uuid: string): Promise<void> {
+        await this.database.Story.destroy({ where: { id: uuid } });
     }
     async findByUserId(userId: string): Promise<IStory[]> {
         return (await this.database.Story.findAll({ where: { userId: userId } })).map(
