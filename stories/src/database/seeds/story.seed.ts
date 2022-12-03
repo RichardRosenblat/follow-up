@@ -1,11 +1,11 @@
 import { v4 } from "uuid";
+import { IDatabase } from "../../types/database.type";
 import { IMigration } from "../../types/infra/migration.type";
-import { IDatabase } from "../../types/db.type";
 
 export class StorySeed implements IMigration {
-    constructor(private readonly db: IDatabase) {}
+    constructor(private readonly database: IDatabase) {}
     async up(): Promise<void> {
-        await this.db.Story.bulkCreate([
+        await this.database.tables.Story.bulkCreate([
             {
                 id: v4(),
                 userId: "638013044e7c8f1e18b9448c",
@@ -117,6 +117,6 @@ export class StorySeed implements IMigration {
         ]);
     }
     async down(): Promise<void> {
-        await this.db.Story.destroy({ truncate: true });
+        await this.database.tables.Story.destroy({ truncate: true });
     }
 }

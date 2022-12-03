@@ -1,8 +1,8 @@
-import { StorySeed } from "./story.seed";
 import { IMigration } from "../../types/infra/migration.type";
-import db from "../db";
+import database from "../database";
+import { StorySeed } from "./story.seed";
 
-const seeds: IMigration[] = [new StorySeed(db)];
+const seeds: IMigration[] = [new StorySeed(database)];
 
 async function seedDatabase(operation: "up" | "down"): Promise<void> {
     for (let i = 0; i < seeds.length; i++) {

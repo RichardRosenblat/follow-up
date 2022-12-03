@@ -1,6 +1,6 @@
 import { StoryRepository } from "../repositories/story.repository";
 import { IStory } from "../types/story/entities/story.entity";
-export class UpdateStoryUseCase {
+export class FindByUserIdStoryUseCase {
     constructor(private readonly repository: StoryRepository) {}
 
     execute(userId: string): Promise<IStory[]> {

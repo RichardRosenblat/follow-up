@@ -1,11 +1,11 @@
 import { Sequelize } from "sequelize";
-import { IDatabase } from "../types/db.type";
+import { IDatabase } from "../types/database.type";
 import { connection } from "./connections/connectionsManager";
 import { Story } from "./models/story.model";
 
-const db: IDatabase = {
+const database: IDatabase = {
     connection,
     Sequelize: Sequelize,
-    Story,
+    tables: { Story },
 };
-export default db;
+export default database;

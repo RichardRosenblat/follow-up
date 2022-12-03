@@ -1,8 +1,8 @@
 import { IMigration } from "../../types/infra/migration.type";
+import database from "../database";
 import { StoryMigration } from "./story.migration";
-import db from "../db";
 
-const migrations: IMigration[] = [new StoryMigration(db)];
+const migrations: IMigration[] = [new StoryMigration(database)];
 
 async function migrateDatabase(operation: "up" | "down"): Promise<void> {
     for (let i = 0; i < migrations.length; i++) {
@@ -13,7 +13,7 @@ async function migrateDatabase(operation: "up" | "down"): Promise<void> {
 const operationArg = process.argv[2] || "";
 
 if (operationArg.toLowerCase() === "up") {
-    console.log("migrating database");
+    console.log("Migrating database");
 
     migrateDatabase("up");
 }
