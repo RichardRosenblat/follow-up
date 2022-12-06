@@ -1,5 +1,4 @@
 import { expect } from "@jest/globals";
-import ObjectId from "bson-objectid";
 import { v4 } from "uuid";
 import { StoryRepository } from "../../src/repositories/story.repository";
 import { sequelizeMock } from "../mocks/sequelize.mock";
@@ -71,7 +70,7 @@ describe("Stories repository", () => {
         expect(foundByUserId[0]).toStrictEqual(storiesTable[0].dataValues);
     });
     it("Should return an array of stories by calling the method find by user id with an id without stories", async () => {
-        const foundByUserId = await repository.findByUserId(ObjectId().toHexString());
+        const foundByUserId = await repository.findByUserId('638f8459fe24d2f39c86cb29');
         expect(foundByUserId).toStrictEqual([]);
     });
 });
