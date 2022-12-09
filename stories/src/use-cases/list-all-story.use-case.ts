@@ -1,9 +1,9 @@
 import { StoryRepository } from "../repositories/story.repository";
-import { IStory } from "../types/story/entities/story.entity";
+import { StoryEntity } from "../entities/story.entity";
 export class ListAllStoryUseCase {
     constructor(private readonly repository: StoryRepository) {}
 
-    execute(): Promise<IStory[]> {
+    public execute(): Promise<StoryEntity[]> {
         return this.repository.listAll();
     }
 }

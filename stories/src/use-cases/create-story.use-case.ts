@@ -1,10 +1,12 @@
 import { StoryRepository } from "../repositories/story.repository";
-import { ICreateStory } from "../types/story/dtos/createStory.dto";
-import { IStory } from "../types/story/entities/story.entity";
+import { CreateStoryDTO } from "../dtos/createStory.dto";
+import { StoryEntity } from "../entities/story.entity";
+import { validateAndThrowCustomError } from "../util/validateAndThrowCustomError";
 export class CreateStoryUseCase {
     constructor(private readonly repository: StoryRepository) {}
 
-    execute(story: ICreateStory): Promise<IStory> {
+    public async execute(story: CreateStoryDTO): Promise<StoryEntity> {
+        await validateAndThrowCustomError(story);
         return this.repository.create(story);
     }
 }

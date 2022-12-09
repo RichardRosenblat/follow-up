@@ -26,6 +26,7 @@
     },
     "homepage": "https://github.com/RichardRosenblat/follow-up#readme",
     "dependencies": {
+        "class-validator": "^0.13.2",
         "dotenv": "^16.0.3",
         "pg": "^8.8.0",
         "pg-hstore": "^2.3.4",

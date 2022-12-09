@@ -1,9 +1,9 @@
 import { StoryRepository } from "../repositories/story.repository";
-import { IStory } from "../types/story/entities/story.entity";
+import { StoryEntity } from "../entities/story.entity";
 export class FindByUserIdStoryUseCase {
     constructor(private readonly repository: StoryRepository) {}
 
-    execute(userId: string): Promise<IStory[]> {
+    public execute(userId: string): Promise<StoryEntity[]> {
         return this.repository.findByUserId(userId);
     }
 }
