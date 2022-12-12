@@ -1,6 +1,6 @@
-import { IStory } from "../../src/types/story/entities/story.entity";
+import { StoryEntity } from "../../src/entities/story.entity";
 
-let storiesTable: { dataValues: IStory }[] = [
+let storiesTable: { dataValues: StoryEntity }[] = [
     {
         dataValues: {
             id: "f345431b-3d56-4ee3-a70e-e8b93f1bc3bb",
@@ -37,8 +37,7 @@ let storiesTable: { dataValues: IStory }[] = [
 ];
 const initialStoriesTable = [...storiesTable];
 
-function restartStoriesTable() {
+function resetStoriesTable() {
     storiesTable = [...initialStoriesTable];
 }
-export { storiesTable, restartStoriesTable };
-
+export { storiesTable, resetStoriesTable };
