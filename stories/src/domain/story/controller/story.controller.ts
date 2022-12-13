@@ -33,22 +33,22 @@ export class StoryController {
 		}
 		return this.listAll.execute();
 	}
-	@Get("/:uuid")
-	getStoryById(@Param("uuid") uuid: string): Promise<StoryEntity> {
-		return this.findById.execute(uuid);
+	@Get("/:id")
+	getStoryById(@Param("id") id: string): Promise<StoryEntity> {
+		return this.findById.execute(id);
 	}
 	@Post()
 	createStory(@Body() story: CreateStoryDTO): Promise<StoryEntity> {
 		return this.create.execute(story);
 	}
-	@Patch('/:uuid')
-	updateStory(@Param('uuid') uuid:string,@Body() story: UpdateStoryDTO): Promise<StoryEntity> {
-		return this.update.execute(uuid, story);
+	@Patch('/:id')
+	updateStory(@Param('id') id:string,@Body() story: UpdateStoryDTO): Promise<StoryEntity> {
+		return this.update.execute(id, story);
 	}
 	@HttpCode(204)
-	@Delete("/:uuid")
-	async deleteStoryById(@Param("uuid") uuid: string): Promise<void> {
-		await this.remove.execute(uuid);
+	@Delete("/:id")
+	async deleteStoryById(@Param("id") id: string): Promise<void> {
+		await this.remove.execute(id);
 		
 	}
 }

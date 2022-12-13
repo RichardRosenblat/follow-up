@@ -1,5 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { Database } from "src/database/database";
+import { Inject, Injectable, OnApplicationShutdown } from "@nestjs/common";
+import { Model, ModelStatic } from "sequelize";
+import { IDatabase } from "src/types/database.type";
 import { v4, validate as isUuid } from "uuid";
 import { CreateStoryDTO } from "../dtos/createStory.dto";
 import { UpdateStoryDTO } from "../dtos/updateStory.dto";
@@ -7,29 +8,40 @@ import { StoryEntity } from "../entities/story.entity";
 
 @Injectable()
 export class StoryRepository {
-    constructor(private readonly database: Database) {}
+    private readonly stories: ModelStatic<Model<any, any>>;
+
+    constructor(@Inject("IDatabase") database: IDatabase) {
+        this.stories = database.tables.Story;
+    }
+
     public async listAll(): Promise<StoryEntity[]> {
-        return (await this.database.tables.Story.findAll()).map((story) => story.dataValues);
+        return (await this.stories.findAll()).map((story) => story.dataValues);
     }
-    public async findById(uuid: string): Promise<StoryEntity> {
-        return (await this.database.tables.Story.findOne({ where: { id: uuid } }))?.dataValues;
+
+    public async findById(id: string): Promise<StoryEntity> {
+        return (await this.stories.findOne({ where: { id } }))?.dataValues;
     }
+
     public async create(story: CreateStoryDTO): Promise<StoryEntity> {
-        return (await this.database.tables.Story.create({ ...story, id: v4() }))?.dataValues;
+        return (await this.stories.create({ ...story, id: v4() }))?.dataValues;
     }
-    public async update(uuid: string, updateInfo: UpdateStoryDTO): Promise<StoryEntity> {
-        await this.database.tables.Story.update(updateInfo, { where: { id: uuid } });
-        return (await this.database.tables.Story.findOne({ where: { id: uuid } }))?.dataValues;
+
+    public async update(id: string, updateInfo: UpdateStoryDTO): Promise<StoryEntity> {
+        await this.stories.update(updateInfo, { where: { id } });
+        return (await this.stories.findOne({ where: { id } }))?.dataValues;
     }
-    public async delete(uuid: string): Promise<void> {
-        await this.database.tables.Story.destroy({ where: { id: uuid } });
+
+    public async delete(id: string): Promise<void> {
+        await this.stories.destroy({ where: { id } });
     }
+
     public async findByUserId(userId: string): Promise<StoryEntity[]> {
-        return (await this.database.tables.Story.findAll({ where: { userId: userId } })).map(
+        return (await this.stories.findAll({ where: { userId: userId } })).map(
             (story) => story?.dataValues
         );
     }
-    public async doesUuidExists(uuid: string) {
-        return isUuid(uuid) && !!(await this.findById(uuid));
+
+    public async doesIdExists(id: string) {
+        return isUuid(id) && !!(await this.findById(id));
     }
 }

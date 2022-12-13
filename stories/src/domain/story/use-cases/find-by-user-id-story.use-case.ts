@@ -7,6 +7,6 @@ export class FindByUserIdStoryUseCase {
 	constructor(private readonly repository: StoryRepository) {}
 
 	public async execute(userId: string): Promise<StoryEntity[]> {
-		return userId ? this.repository.findByUserId(userId) : [];
+		return this.repository.findByUserId(userId);
 	}
 }

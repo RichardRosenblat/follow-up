@@ -1,5 +1,5 @@
 import { StoryEntity } from "../entities/story.entity";
-import { validate } from "uuid";
+import { validate as isUuid } from "uuid";
 import { Injectable } from "@nestjs/common";
 import { storyNotFoundError } from "../dtos/errors/storyNotFoundError";
 import { StoryRepository } from "../repositories/story.repository";
@@ -8,8 +8,8 @@ import { StoryRepository } from "../repositories/story.repository";
 export class FindByIdStoryUseCase {
 	constructor(private readonly repository: StoryRepository) {}
 
-	public async execute(storyUuid: string): Promise<StoryEntity> {
-		const foundById = validate(storyUuid) ? await this.repository.findById(storyUuid) : undefined;
+	public async execute(storyId: string): Promise<StoryEntity> {
+		const foundById = isUuid(storyId) && await this.repository.findById(storyId);		
 
 		if (!foundById) {
 			throw storyNotFoundError;
