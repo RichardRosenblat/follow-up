@@ -18,11 +18,4 @@ export class CreateStoryDTO implements Omit<StoryEntity, "id" | "createdAt" | "u
     @Min(0)
     @IsInt()
     impressions: number = 0;
-
-    constructor(userId: string, title: string, content?: string, impressions?: number) {
-        this.userId = userId;
-        this.title = title;
-        content && (this.content = content);
-        impressions && (this.impressions = impressions);
-    }
 }

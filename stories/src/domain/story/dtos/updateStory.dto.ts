@@ -21,10 +21,4 @@ export class UpdateStoryDTO implements Partial<CreateStoryDTO> {
     @IsInt()
     impressions?: number;
 
-    constructor(userId?: string, title?: string, content?: string, impressions?: number) {
-        (userId || userId === "") && (this.userId = userId);
-        (title || title === "") && (this.title = title);
-        (content || content === "") && (this.content = content);
-        (impressions || impressions === 0) && (this.impressions = impressions);
-    }
 }

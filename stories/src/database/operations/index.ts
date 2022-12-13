@@ -1,5 +1,5 @@
 import { IMigration } from "../../types/infra/migration.type";
-import database from "../database";
+import { connection as sequelize } from "../connections/connectionsManager";
 import migrations from "./migrations/migrations";
 import seeds from "./seeds/seeds";
 
@@ -32,5 +32,5 @@ async function migrateDatabase(migrations: IMigration[], operation: keyof IMigra
 		const seed = migrations[i];
 		await seed[operation]();
 	}
-    database.connection.close()
+    sequelize.close()
 }

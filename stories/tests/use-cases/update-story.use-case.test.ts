@@ -1,10 +1,10 @@
 import { expect } from "@jest/globals";
 import { v4 } from "uuid";
-import { UpdateStoryDTO } from "../../src/dtos/updateStory.dto";
-import { StoryRepository } from "../../src/repositories/story.repository";
-import { UpdateStoryUseCase } from "../../src/use-cases/update-story.use-case";
+import { StoryRepository } from "../../src/domain/repositories/story.repository";
+import { UpdateStoryUseCase } from "../../src/domain/story/use-cases/update-story.use-case";
 import { sequelizeMock } from "../mocks/sequelize.mock";
 import { resetStoriesTable, storiesTable } from "../mocks/stories-table.mock";
+import { UpdateStoryDTO } from "../../src/domain/story/dtos/updateStory.dto";
 
 describe("Update story use case", () => {
     resetStoriesTable();

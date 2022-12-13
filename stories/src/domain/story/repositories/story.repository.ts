@@ -1,11 +1,13 @@
+import { Injectable } from "@nestjs/common";
+import { Database } from "src/database/database";
 import { v4, validate as isUuid } from "uuid";
-import { IDatabase } from "../types/database.type";
 import { CreateStoryDTO } from "../dtos/createStory.dto";
 import { UpdateStoryDTO } from "../dtos/updateStory.dto";
 import { StoryEntity } from "../entities/story.entity";
 
+@Injectable()
 export class StoryRepository {
-    constructor(private readonly database: IDatabase) {}
+    constructor(private readonly database: Database) {}
     public async listAll(): Promise<StoryEntity[]> {
         return (await this.database.tables.Story.findAll()).map((story) => story.dataValues);
     }

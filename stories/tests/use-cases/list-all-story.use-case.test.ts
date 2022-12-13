@@ -1,6 +1,6 @@
 import { expect } from "@jest/globals";
-import { StoryRepository } from "../../src/repositories/story.repository";
-import { ListAllStoryUseCase } from "../../src/use-cases/list-all-story.use-case";
+import { StoryRepository } from "../../src/domain/repositories/story.repository";
+import { ListAllStoryUseCase } from "../../src/domain/story/use-cases/list-all-story.use-case";
 import { sequelizeMock } from "../mocks/sequelize.mock";
 import { resetStoriesTable, storiesTable } from "../mocks/stories-table.mock";
 import { storyModelMock } from "../mocks/story.model.mock";

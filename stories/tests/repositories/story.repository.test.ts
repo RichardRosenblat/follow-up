@@ -1,8 +1,8 @@
 import { expect } from "@jest/globals";
+import { CreateStoryDTO } from "../../src/domain/story/dtos/createStory.dto";
+import { UpdateStoryDTO } from "../../src/domain/story/dtos/updateStory.dto";
 import { v4 } from "uuid";
-import { CreateStoryDTO } from "../../src/dtos/createStory.dto";
-import { UpdateStoryDTO } from "../../src/dtos/updateStory.dto";
-import { StoryRepository } from "../../src/repositories/story.repository";
+import { StoryRepository } from "../../src/domain/repositories/story.repository";
 import { sequelizeMock } from "../mocks/sequelize.mock";
 import { resetStoriesTable, storiesTable } from "../mocks/stories-table.mock";
 import { storyModelMock } from "../mocks/story.model.mock";
