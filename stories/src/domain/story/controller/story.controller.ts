@@ -27,27 +27,27 @@ export class StoryController {
     ) {}
 
 	@Get()
-	getlistAllStories(@Query("userId") userId?: string): Promise<StoryEntity[]> {
+	public getlistAllStories(@Query("userId") userId?: string): Promise<StoryEntity[]> {
 		if (userId) {
 			return this.byUserId.execute(userId);
 		}
 		return this.listAll.execute();
 	}
 	@Get("/:id")
-	getStoryById(@Param("id") id: string): Promise<StoryEntity> {
+	public getStoryById(@Param("id") id: string): Promise<StoryEntity> {
 		return this.findById.execute(id);
 	}
 	@Post()
-	createStory(@Body() story: CreateStoryDTO): Promise<StoryEntity> {
+	public createStory(@Body() story: CreateStoryDTO): Promise<StoryEntity> {
 		return this.create.execute(story);
 	}
 	@Patch('/:id')
-	updateStory(@Param('id') id:string,@Body() story: UpdateStoryDTO): Promise<StoryEntity> {
+	public updateStory(@Param('id') id:string,@Body() story: UpdateStoryDTO): Promise<StoryEntity> {
 		return this.update.execute(id, story);
 	}
 	@HttpCode(204)
 	@Delete("/:id")
-	async deleteStoryById(@Param("id") id: string): Promise<void> {
+	public async deleteStoryById(@Param("id") id: string): Promise<void> {
 		await this.remove.execute(id);
 		
 	}
