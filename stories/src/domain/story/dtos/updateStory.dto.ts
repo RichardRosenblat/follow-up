@@ -1,10 +1,12 @@
 import { IsInt, IsNotEmpty, IsOptional, IsString, Min } from "class-validator";
+import { ExistingUserId } from "../validators/doesUserIdExists";
 import { CreateStoryDTO } from "./createStory.dto";
 
 export class UpdateStoryDTO implements Partial<CreateStoryDTO> {
     @IsNotEmpty()
     @IsString()
     @IsOptional()
+    @ExistingUserId()
     userId?: string;
 
     @IsNotEmpty()
@@ -21,10 +23,4 @@ export class UpdateStoryDTO implements Partial<CreateStoryDTO> {
     @IsInt()
     impressions?: number;
 
-    constructor(userId?: string, title?: string, content?: string, impressions?: number) {
-        (userId || userId === "") && (this.userId = userId);
-        (title || title === "") && (this.title = title);
-        (content || content === "") && (this.content = content);
-        (impressions || impressions === 0) && (this.impressions = impressions);
-    }
 }

@@ -1,6 +1,8 @@
 import { IMigration } from "../../../types/infra/migration.type";
-import database from "../../database";
+import { Database } from "../../database";
 import { StoryMigration } from "./story.migration";
+
+const database = new Database();
 
 const migrations: IMigration[] = [new StoryMigration(database)];
 

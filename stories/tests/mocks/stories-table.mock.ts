@@ -1,4 +1,4 @@
-import { StoryEntity } from "../../src/entities/story.entity";
+import { StoryEntity } from "../../src/domain/story/entities/story.entity";
 
 let storiesTable: { dataValues: StoryEntity }[] = [
     {

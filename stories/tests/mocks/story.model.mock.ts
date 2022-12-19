@@ -1,8 +1,8 @@
 import { storiesTable } from "./stories-table.mock";
 import { v4 } from "uuid";
-import { CreateStoryDTO } from "../../src/dtos/createStory.dto";
-import { StoryEntity } from "../../src/entities/story.entity";
-import { UpdateStoryDTO } from "../../src/dtos/updateStory.dto";
+import { StoryEntity } from "../../src/domain/story/entities/story.entity";
+import { CreateStoryDTO } from "../../src/domain/story/dtos/createStory.dto";
+import { UpdateStoryDTO } from "../../src/domain/story/dtos/updateStory.dto";
 
 interface whereId {
     where: {
