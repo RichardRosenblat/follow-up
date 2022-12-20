@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Sequelize } from "sequelize";
-import { IDatabase } from "../types/database.type";
+import { IDatabase } from "./types/database.type";
 import { connection } from "./connections/connectionsManager";
 import { Story } from "./models/story.model";
 

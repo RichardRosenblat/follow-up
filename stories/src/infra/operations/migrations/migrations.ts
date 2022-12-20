@@ -1,4 +1,4 @@
-import { IMigration } from "../../../types/infra/migration.type";
+import { IMigration } from "../../types/migration.type";
 import { Database } from "../../database";
 import { StoryMigration } from "./story.migration";
 

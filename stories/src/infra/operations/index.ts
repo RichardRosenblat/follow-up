@@ -1,5 +1,5 @@
-import { IMigration } from "../../types/infra/migration.type";
-import { connection as sequelize } from "../connections/connectionsManager";
+import { IMigration } from "../types/migration.type";
+import { connection as sequelize } from "../../infra/connections/connectionsManager";
 import migrations from "./migrations/migrations";
 import seeds from "./seeds/seeds";
 

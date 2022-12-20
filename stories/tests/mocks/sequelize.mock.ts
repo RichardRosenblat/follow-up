@@ -1,5 +1,5 @@
 import { OnApplicationShutdown } from "@nestjs/common";
-import { IDatabase } from "../../src/types/database.type";
+import { IDatabase } from "../../src/infra/types/database.type";
 import { storyModelMock } from "./story.model.mock";
 
 export const sequelizeMock: IDatabase & OnApplicationShutdown = {

@@ -3,8 +3,6 @@ import config from "../config/config";
 
 const { database, username, password, ...options } = config;
 
-console.log();
-console.log("Connecting to database");
 const connection = new Sequelize(database, username, password, {
     ...options,
     pool: {
@@ -15,6 +13,5 @@ const connection = new Sequelize(database, username, password, {
     },
 });
 console.log("Database connected");
-console.log();
 
 export { connection };

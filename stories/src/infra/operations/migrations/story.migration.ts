@@ -1,5 +1,5 @@
-import { IDatabase } from "../../../types/database.type";
-import { IMigration } from "../../../types/infra/migration.type";
+import { IDatabase } from "../../types/database.type";
+import { IMigration } from "../../types/migration.type";
 
 export class StoryMigration implements IMigration {
 	constructor(private readonly database: IDatabase) {}

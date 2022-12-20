@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
-import { IDatabase } from "../../../types/database.type";
-import { IMigration } from "../../../types/infra/migration.type";
+import { IDatabase } from "../../types/database.type";
+import { IMigration } from "../../types/migration.type";
 
 export class StorySeed implements IMigration {
 	constructor(private readonly database: IDatabase) {}
