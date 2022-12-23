@@ -13,7 +13,8 @@ async function bootstrap() {
         })
     );
     app.enableShutdownHooks();
+    app.enableCors()
     useContainer(app.select(AppModule), { fallbackOnErrors: true });
-    await app.listen(3000);
+    await app.listen(+(process.env.APP_PORT || 5000));
 }
 bootstrap();

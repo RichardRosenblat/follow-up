@@ -1,0 +1,17 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.message {
+	&__container {
+		background-color: $gray;
+		color: $black;
+		margin-bottom: 10px;
+		margin-top: 10px;
+		text-align: center;
+		padding: 10px;
+		@include centralized;
+		@media screen and (max-width: $max_width_to_mobile) {
+			width: 103%;
+		}
+	}
+}
