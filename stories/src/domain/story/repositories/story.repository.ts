@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnApplicationShutdown } from "@nestjs/common";
 import { Model, ModelStatic } from "sequelize";
-import { IDatabase } from "src/types/database.type";
+import { IDatabase } from "src/infra/types/database.type";
 import { v4, validate as isUuid } from "uuid";
 import { CreateStoryDTO } from "../dtos/createStory.dto";
 import { UpdateStoryDTO } from "../dtos/updateStory.dto";

@@ -1,0 +1,12 @@
+@import "./variables";
+
+@mixin centralized {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: $width_desktop;
+    @media screen and (max-width: $max_width_to_mobile) {
+        width: $width_mobile;
+    }
+
+}

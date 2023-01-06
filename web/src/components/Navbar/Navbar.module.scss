@@ -1,0 +1,45 @@
+@import "../../styles/variables";
+.navigation {
+	&__image {
+		margin-left: 5%;
+		@media screen and (max-width: $max_width_to_mobile) {
+			visibility: hidden;
+			display: none;
+		}
+	}
+	&__bar {
+		display: flex;
+		align-items: center;
+		position: -webkit-sticky;
+		top: 0;
+		position: sticky;
+		background-color: $background-blue;
+		z-index: 10;
+		padding-top: 10px;
+		padding-bottom: 20px;
+		width: 98%;
+		@media screen and (max-width: $max_width_to_mobile) {
+			top: 0;
+			width: 108%;
+			padding-left: 5px;
+		}
+	}
+
+	&__title {
+		padding-left: 5px;
+		padding-right: 50px;
+		padding-top: 14px;
+		font-size: larger;
+	}
+	&__options {
+		margin-left: auto;
+		display: flex;
+		&__option {
+			padding-top: 14px;
+			padding-right: 20px;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}

@@ -1,0 +1,15 @@
+@import "../../styles/variables";
+
+.loader {
+	text-align: center;
+	margin-bottom: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+	@media screen and (max-width: $max_width_to_mobile) {
+		margin-top: 25%;
+	}
+	&--hidden {
+		display: none;
+	}
+}
