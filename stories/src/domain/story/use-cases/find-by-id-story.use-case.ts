@@ -1,9 +1,8 @@
-import { StoryEntity } from "../entities/story.entity";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { validate as isUuid } from "uuid";
-import { HttpStatus, Injectable } from "@nestjs/common";
-import { StoryRepository } from "../repositories/story.repository";
-import { HttpErrorByCode } from "@nestjs/common/utils/http-error-by-code.util";
 import { StoryDTO } from "../dtos/story.dto";
+import { StoryRepository } from "../repositories/story.repository";
+import { storyNotFoundErrorBody } from "../errors/story-not-found.error";
 
 @Injectable()
 export class FindByIdStoryUseCase {
@@ -13,7 +12,7 @@ export class FindByIdStoryUseCase {
 		const foundById = isUuid(storyId) && (await this.repository.findById(storyId));
 
 		if (!foundById) {
-			throw new HttpErrorByCode[HttpStatus.NOT_FOUND](["story not found"]);
+			throw new NotFoundException(storyNotFoundErrorBody);
 		}
 
 		return new StoryDTO(foundById);

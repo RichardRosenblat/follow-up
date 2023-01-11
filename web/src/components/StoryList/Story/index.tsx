@@ -11,14 +11,14 @@ export default function Story(data: props) {
 	const formattedDate = new Intl.DateTimeFormat("pt-br").format(new Date(data.createdAt));
 	return (
 		<>
-			<article className={Style.story}>
-				<div>
+			<section className={Style.story}>
+				<header>
 					<b className={Style.story__user}>{data.name}</b>, em {formattedDate} <br />
 					<div><b>{data.impressions}</b> impressions</div>
-				</div>
-				<h4 className={Style.story__title}>{data.title}</h4>
-				<div>{data.content}</div>
-			</article>
+				</header>
+				<h3 className={Style.story__title}>{data.title}</h3>
+				<article>{data.content}</article>
+			</section>
 			<div className={Style.divisor}></div>
 		</>
 	);

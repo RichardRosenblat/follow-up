@@ -1,6 +1,7 @@
-import { HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
+import { NotFoundException } from "@nestjs/common/exceptions";
 import { StoryRepository } from "../repositories/story.repository";
-import { HttpErrorByCode } from "@nestjs/common/utils/http-error-by-code.util";
+import { storyNotFoundErrorBody } from "../errors/story-not-found.error";
 
 @Injectable()
 export class DeleteStoryUseCase {
@@ -9,7 +10,7 @@ export class DeleteStoryUseCase {
 	public async execute(storyId: string): Promise<void> {
 		const idExists = await this.repository.doesIdExists(storyId);
 		if (!idExists) {
-			throw new HttpErrorByCode[HttpStatus.NOT_FOUND](["story not found"]);
+			throw new NotFoundException(storyNotFoundErrorBody);
 		}
 		return this.repository.delete(storyId);
 	}

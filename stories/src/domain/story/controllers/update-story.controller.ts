@@ -3,7 +3,7 @@ import { UpdateStoryDTO } from "../dtos/updateStory.dto";
 import { StoryEntity } from "../entities/story.entity";
 import { UpdateStoryUseCase } from "../use-cases/update-story.use-case";
 
-@Controller("v1/story")
+@Controller({ path: "story", version: "1" })
 export class UpdateStoryController {
 	constructor(private readonly update: UpdateStoryUseCase) {}
 

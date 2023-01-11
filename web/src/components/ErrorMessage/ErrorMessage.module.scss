@@ -1,17 +1,17 @@
+@import "../../styles/variables";
 .error {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	-webkit-transform: translate(-25%, -100%);
 	transform: translate(-25%, -100%);
 	&__message {
 		transform: translate(-25%, 80%);
-		color: #ffffff;
+		color: $white;
 		text-align: center;
 		button {
 			cursor: pointer;
 			background: none;
-			color: #ff5174;
+			color: $error-symbol-red;
 			border: none;
 			padding: 0;
 			font-weight: bolder;

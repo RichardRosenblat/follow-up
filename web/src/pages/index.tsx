@@ -73,7 +73,7 @@ export default function Feed() {
 	}, [loggedUserName, stories]);
 
 	return (
-		<main>
+		<>
 			<Navbar />
 			{hasErrorOcurred && <ErrorMessage />}
 
@@ -85,6 +85,6 @@ export default function Feed() {
 					<StoryList stories={stories} />
 				</FadeIn>
 			)}
-		</main>
+		</>
 	);
 }
