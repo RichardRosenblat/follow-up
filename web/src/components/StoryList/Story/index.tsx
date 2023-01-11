@@ -1,3 +1,4 @@
+import Divisor from '../../Divisor';
 import Style from './Story.module.scss'
 interface props {
 	name: string;
@@ -19,7 +20,7 @@ export default function Story(data: props) {
 				<h3 className={Style.story__title}>{data.title}</h3>
 				<article>{data.content}</article>
 			</section>
-			<div className={Style.divisor}></div>
+			<Divisor/>
 		</>
 	);
 }

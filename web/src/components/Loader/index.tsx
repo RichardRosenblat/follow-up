@@ -7,11 +7,11 @@ interface props {
 }
 
 export default function Loader({ isHidden }: props) {
-	const isHiddenClassname = isHidden ? "" : "--hidden";
+	const isHiddenClassname = isHidden ? "--hidden" : "";
 	return (
 		<FadeIn>
 			<div className={Style[`loader${isHiddenClassname}`]}>
-				<RotateLoader color="#FFFFFF" loading={isHidden} />
+				<RotateLoader color="#FFFFFF" loading={!isHidden} />
 			</div>
 		</FadeIn>
 	);
