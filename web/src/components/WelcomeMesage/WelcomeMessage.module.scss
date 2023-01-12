@@ -11,7 +11,7 @@
 		padding: 10px;
 		@include centralized;
 		@media screen and (max-width: $max_width_to_mobile) {
-			width: 103%;
+			width: 100vw;
 		}
 	}
 }

@@ -7,7 +7,7 @@
 	margin-right: auto;
 	margin-top: 10%;
 	@media screen and (max-width: $max_width_to_mobile) {
-		margin-top: 25%;
+		margin-top: 25vw;
 	}
 	&--hidden {
 		display: none;

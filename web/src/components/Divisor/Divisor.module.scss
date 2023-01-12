@@ -7,6 +7,6 @@
 	@include centralized;
 	width: $width_desktop;
 	@media screen and (max-width: $max_width_to_mobile) {
-		width: 109%;
+		width: 100vw;
 	}
 }

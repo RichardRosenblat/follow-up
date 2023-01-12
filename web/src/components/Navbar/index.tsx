@@ -5,8 +5,9 @@ import styles from "./Navbar.module.scss";
 export default function Navbar() {
 	const location = useLocation();
 	const pages = [
-		{ label: "Dashboard", location: "/" },
-		{ label: "Followers", location: "/followers" },
+		{ label: "Dashboard", location: "/", forceReload: false },
+		{ label: "Followers", location: "/followers", forceReload: false },
+		{ label: "Profile", location: "/profile/self", forceReload: true },
 	];
 	return (
 		<nav className={styles.navigation__bar}>
@@ -26,7 +27,9 @@ export default function Navbar() {
 							]
 						}
 					>
-						<Link to={page.location}>{page.label}</Link>
+						<Link reloadDocument={page.forceReload} to={page.location}>
+							{page.label}
+						</Link>
 					</div>
 				))}
 			</div>

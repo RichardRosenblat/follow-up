@@ -3,13 +3,13 @@ import ErrorMessage from "../../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 export default function NotFound() {
-	const nagivage = useNavigate();
+	const navigate = useNavigate();
 	return (
 		<div>			
 			<ErrorMessage icon={TbError404}>
 				The <b>page</b> you tried reaching <b>does not exist.</b>
 				<br />
-				<button onClick={() => nagivage(-1)}>Click here</button> to go back.
+				<button onClick={() => navigate(-1)}>Click here</button> to go back.
 			</ErrorMessage>
 		</div>
 	);

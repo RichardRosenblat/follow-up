@@ -1,11 +1,11 @@
-@import "../../../styles/variables";
-@import "../../../styles/mixins";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 .user {
+	@include centralized;
 	margin-top: 25px;
 	margin-bottom: 25px;
 	padding-left: 15px;
-	@include centralized;
 	display: flex;
 	align-items: center;
 	justify-content: left;
@@ -17,8 +17,7 @@
 		display: block;
 
 		&__name {
-			color: $orange;
-			font-size: large;
+			@include user-name;
 		}
 		&__since {
 			padding-top: 5px;

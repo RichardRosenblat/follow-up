@@ -23,34 +23,38 @@ export function Feed({ userId }: props) {
 		isLoading: isLoadingActiveUser,
 	} = useQuery("getActiveUser", async () => (await getUserById(userId)).data);
 	const {
-		data: stories,
+		data: storiesWithUserData,
 		isError: isErrorStories,
 		isLoading: isLoadingStories,
-	} = useQuery("getStories", async () => {
-		const stories = (await getAllStories()).data;
-		const storiesWithUserData: IStoryWithUserData[] = [];
-		for (let index = 0; index < stories.length; index++) {
-			const story = stories[index];
+	} = useQuery(
+		"getStories",
+		async () => {
+			const stories = (await getAllStories()).data;
+			const storiesWithUserData: IStoryWithUserData[] = [];
+			for (let index = 0; index < stories.length; index++) {
+				const story = stories[index];
 
-			// if cannot get the user that created the story, retry 3 times before throwing error
-			let user: IUser | null = null;
-			for (let j = 0; j < 3; j++) {
-				try {
-					user = (await getUserById(story.userId)).data;
-				} catch (error) {
-					if (j === 2) {
-						throw error;
+				// if cannot get the user that created the story, retry 3 times before throwing error
+				let user: IUser | null = null;
+				for (let j = 0; j < 3; j++) {
+					try {
+						user = (await getUserById(story.userId)).data;
+					} catch (error) {
+						if (j === 2) {
+							throw error;
+						}
+					}
+					if (user) {
+						break;
 					}
 				}
-				if (user) {
-					break;
-				}
+				const { id, ...userWIthoutId } = user as IUser;
+				storiesWithUserData.push({ ...story, ...userWIthoutId });
 			}
-			const { id, ...userWIthoutId } = user as IUser;
-			storiesWithUserData.push({ ...story, ...userWIthoutId });
-		}
-		return storiesWithUserData;
-	});
+			return storiesWithUserData;
+		},
+		{ retry: 2 }
+	);
 
 	const isError = isErrorStories || isErrorActiveUser;
 	const isLoading = isLoadingStories && isLoadingActiveUser;
@@ -64,7 +68,7 @@ export function Feed({ userId }: props) {
 			{!isError && !isLoading && (
 				<FadeIn>
 					<WelcomeMessage name={activeUser?.name || ""} to={"Stories' Feed"} />
-					<StoryList storiesWithUserData={stories || []} />
+					<StoryList storiesWithUserData={storiesWithUserData || []} />
 				</FadeIn>
 			)}
 		</>
