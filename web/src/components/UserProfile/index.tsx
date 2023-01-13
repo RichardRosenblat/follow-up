@@ -20,7 +20,7 @@ export default function Profile({ user, stories }: props) {
 	return (
 		<FadeIn delay={100}>
 			<Divisor />
-			<User {...user} />
+			<User {...user} showEmail iconProps={{size:"150px"}} />
 			<Divisor />
 			{stories.length ? (
 				<StoryList storiesWithUserData={storiesWithUserData} />

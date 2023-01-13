@@ -9,15 +9,22 @@
 	display: flex;
 	align-items: center;
 	justify-content: left;
-
+	white-space: pre-wrap;
+	word-break: break-word;
+	@media screen and (max-width: $max_width_to_mobile) {
+		width: 90%;
+	}
 	&__icon {
 		padding-right: 10px;
 	}
 	&__details {
 		display: block;
-
 		&__name {
 			@include user-name;
+		}
+		&__email {
+			font-size: medium;
+			color: $white;
 		}
 		&__since {
 			padding-top: 5px;

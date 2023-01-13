@@ -8,5 +8,12 @@ body {
 
 html {
 	width: 100vw;
-	overflow-x: hidden;
 }
+/* 
+*::-webkit-scrollbar {
+	background-color: #2d2f6f;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #242659;
+} */

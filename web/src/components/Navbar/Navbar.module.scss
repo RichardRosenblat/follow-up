@@ -1,4 +1,5 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
 .navigation {
 	&__image {
 		margin-left: 5%;
@@ -8,25 +9,26 @@
 		}
 	}
 	&__bar {
+		@include centralized;
+		justify-content: left;
+		overflow-x: hidden;
+		position: sticky;
+		z-index: 1;
 		display: flex;
 		align-items: center;
-		top: 0;
-		position: sticky;
+		top: 0px;
 		background-color: $background-blue;
-		z-index: 10;
 		padding-top: 10px;
 		padding-bottom: 20px;
-		width: 98%;
+		width: 95%;
 		@media screen and (max-width: $max_width_to_mobile) {
-			top: 0;
-			width: 100vw;
+			width: 99%;
+			top: 0px;
 			padding-left: 5px;
 		}
 	}
-
 	&__title {
-		padding-left: 5px;
-		padding-right: 50px;
+		padding-left: 2px;
 		padding-top: 14px;
 		font-size: larger;
 		a {
@@ -35,11 +37,16 @@
 		}
 	}
 	&__options {
-		margin-left: auto;
 		display: flex;
+		width: 90%;
+		justify-content: right;
 		&__option {
 			padding-top: 14px;
 			padding-right: 20px;
+			@media screen and (max-width: $max_width_to_mobile) {
+				padding-right: 10px;
+				font-size: small;
+			}
 			a {
 				color: inherit;
 				text-decoration: inherit;

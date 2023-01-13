@@ -2,11 +2,7 @@
 @import "../../styles/mixins";
 
 .divisor {
+	@include centralized;
 	background-color: $turquoise;
 	height: 10px;
-	@include centralized;
-	width: $width_desktop;
-	@media screen and (max-width: $max_width_to_mobile) {
-		width: 100vw;
-	}
 }

@@ -1,10 +1,10 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 .message {
-@include centralized;
+	@include centralized;
 	color: $white;
 	text-align: center;
-	padding-top:10px;
+	padding-top: 10px;
 	button {
 		cursor: pointer;
 		background: none;

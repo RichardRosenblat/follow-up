@@ -12,11 +12,11 @@ export default function Navbar() {
 	return (
 		<nav className={styles.navigation__bar}>
 			<Logo height={50} width={50} className={styles.navigation__image} />
-			<header className={styles.navigation__title}>
+			<div className={styles.navigation__title}>
 				<b>
 					<Link to="/">FollowUp</Link>
 				</b>
-			</header>
+			</div>
 			<div className={styles.navigation__options}>
 				{pages.map((page, index) => (
 					<div
