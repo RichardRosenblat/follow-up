@@ -1,0 +1,31 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.story {
+	@include centralized;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	padding-left: 10px;
+	word-wrap: break-word;
+	white-space: pre-wrap;
+	word-break: break-word;
+	@media screen and (max-width: $max_width_to_mobile) {
+		padding-right: 10px;
+		width: 90%;
+	}
+	&__content {
+		margin-top: 0px;
+		@media screen and (max-width: $max_width_to_mobile) {
+			width: 90%;
+		}
+	}
+	&__user {
+		@include user-name;
+	}
+	&__title {
+		margin-bottom: 10px;
+	}
+	&__impressions {
+		margin-top: 10px;
+	}
+}

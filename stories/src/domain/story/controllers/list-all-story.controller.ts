@@ -3,7 +3,7 @@ import { StoryEntity } from "../entities/story.entity";
 import { FindByUserIdStoryUseCase } from "../use-cases/find-by-user-id-story.use-case";
 import { ListAllStoryUseCase } from "../use-cases/list-all-story.use-case";
 
-@Controller("v1/story")
+@Controller({ path: "story", version: "1" })
 export class ListAllStoryController {
 	constructor(
 		private readonly listAll: ListAllStoryUseCase,

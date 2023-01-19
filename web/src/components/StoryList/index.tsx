@@ -1,18 +1,23 @@
 import FadeIn from "react-fade-in";
 import { IStoryWithUserData } from "../../types/userAndStory.type";
-import Story from "./Story";
+import Story from "../Story";
+import Divisor from "../Divisor";
+import React from "react";
 
 interface props {
-	stories: IStoryWithUserData[];
+	storiesWithUserData: IStoryWithUserData[];
 }
 
-export default function StoryList({ stories }: props) {
+export default function StoryList({ storiesWithUserData: stories }: props) {
 	const orderedStories = stories.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 	return (
 		<div>
 			<FadeIn delay={90}>
 				{orderedStories.map((storyData) => (
-					<Story key={storyData.id} {...storyData} />
+					<React.Fragment key={storyData.id}>
+						<Story {...storyData} />
+						<Divisor />
+					</React.Fragment>
 				))}
 			</FadeIn>
 		</div>

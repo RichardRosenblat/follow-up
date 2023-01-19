@@ -13,8 +13,9 @@ async function bootstrap() {
         })
     );
     app.enableShutdownHooks();
+    app.enableVersioning()
     app.enableCors()
     useContainer(app.select(AppModule), { fallbackOnErrors: true });
-    await app.listen(+(process.env.APP_PORT || 5000));
+    await app.listen(Number(process.env.APP_PORT || 5000));
 }
 bootstrap();

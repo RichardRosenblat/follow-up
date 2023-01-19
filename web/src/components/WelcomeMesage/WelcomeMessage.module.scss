@@ -3,15 +3,15 @@
 
 .message {
 	&__container {
+		@include centralized;
 		background-color: $gray;
+		@media screen and (max-width: $max_width_to_mobile) {
+			width: auto;
+		}
 		color: $black;
 		margin-bottom: 10px;
 		margin-top: 10px;
 		text-align: center;
 		padding: 10px;
-		@include centralized;
-		@media screen and (max-width: $max_width_to_mobile) {
-			width: 103%;
-		}
 	}
 }

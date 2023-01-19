@@ -1,7 +1,7 @@
 import { Controller, Delete, HttpCode, Param } from "@nestjs/common";
 import { DeleteStoryUseCase } from "../use-cases/delete-story.use-case";
 
-@Controller("v1/story")
+@Controller({ path: "story", version: "1" })
 export class DeleteStoryController {
 	constructor(
 	private readonly remove: DeleteStoryUseCase,

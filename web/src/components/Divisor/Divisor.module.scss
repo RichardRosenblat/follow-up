@@ -1,0 +1,8 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.divisor {
+	@include centralized;
+	background-color: $turquoise;
+	height: 10px;
+}

@@ -1,13 +1,13 @@
+import "normalize.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "normalize.css";
 import "./index.css";
-import Feed from "./pages";
+import AppRouter from "./Routes";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
 	<React.StrictMode>
-		<Feed />
+		<AppRouter />
 	</React.StrictMode>
 );
